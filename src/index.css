@@ -86,3 +86,4 @@ details { margin-top: 12px; font-size: 14px; } details button { margin: 8px 8px 
 .card.src { padding: 10px 14px; } .src-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; } .src h3 { font-size: 16px; overflow-wrap: anywhere; }
 .seg button { font-size: 13px; padding: 0 2px; }
 .src-later summary { font: 700 17px Georgia, serif; color: var(--green); margin: 18px 0 8px; min-height: 44px; display: flex; align-items: center; }
+.stale { color: #c0392b; font-weight: 600; }

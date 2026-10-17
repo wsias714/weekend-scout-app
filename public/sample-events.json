@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17T16:01:04",
+ "generated": "2026-10-17T16:19:27",
  "today": "2026-10-17",
  "sections": {
   "did_you_go": [],
@@ -465,7 +465,7 @@
     "why": "Free + Art + Aliso Viejo",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Family-friendly market where artists, crafters and designers sell locally made goods. Photo opportunities and food for purchase. Cost: Free.",
+    "summary": "A free, family-friendly market where local artists, crafters and designers sell handmade goods. Photo opportunities and food for purchase are also available. Cost: Free.",
     "drive_min": 15
    },
    {
@@ -946,7 +946,7 @@
    "kind": "page",
    "enabled": true,
    "stage": 2,
-   "events": 5,
+   "events": 2,
    "url": "https://orangecounty.net/mobile/weekend_events.html",
    "note": "",
    "user": false
@@ -957,7 +957,7 @@
    "kind": "page",
    "enabled": true,
    "stage": 2,
-   "events": 7,
+   "events": 5,
    "url": "https://orangecounty.net/mobile/events_free.html",
    "note": "",
    "user": false
@@ -968,7 +968,7 @@
    "kind": "page",
    "enabled": true,
    "stage": 2,
-   "events": 5,
+   "events": 3,
    "url": "https://orangecounty.net/mobile/events_edu.html",
    "note": "",
    "user": false
@@ -1001,7 +1001,7 @@
    "kind": "page",
    "enabled": true,
    "stage": 2,
-   "events": 4,
+   "events": 5,
    "url": "https://www.oc-ca.com/events/",
    "note": "",
    "user": false
@@ -1214,7 +1214,43 @@
    "url": "",
    "note": "ATOMIC Ballroom dance nights",
    "user": false
+  },
+  {
+   "key": "u_www_santaanazoo_org_events_3bb1bf",
+   "label": "santaanazoo.org/events",
+   "kind": "page",
+   "enabled": true,
+   "stage": 2,
+   "events": 5,
+   "url": "https://www.santaanazoo.org/events",
+   "note": "",
+   "user": true
   }
  ],
- "suggestions": []
+ "suggestions": [
+  {
+   "id": 3,
+   "url": "",
+   "note": "Tustin farmers market",
+   "at": "2026-10-17T16:42:00.000Z",
+   "status": "saved",
+   "result": "Saved as a note. Send a link and I will try it."
+  },
+  {
+   "id": 2,
+   "url": "https://www.santaanazoo.org/events",
+   "note": "",
+   "at": "2026-10-17T16:41:00.000Z",
+   "status": "added",
+   "result": "Added. Found 5 upcoming events."
+  },
+  {
+   "id": 1,
+   "url": "http://127.0.0.1:5001/",
+   "note": "",
+   "at": "2026-10-17T16:40:00.000Z",
+   "status": "rejected",
+   "result": "That isn't a public web address."
+  }
+ ]
 }

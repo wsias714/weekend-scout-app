@@ -48,7 +48,7 @@ export default function Timeline({ items, onOpen, status }: {
         const blocks = layout(timed);
         const first = blocks.length ? Math.floor(Math.min(...blocks.map((b) => b.s)) / 60) : 9;
         const last = blocks.length ? Math.ceil(Math.max(...blocks.map((b) => b.e)) / 60) : 10;
-        const from = Math.max(0, Math.min(first, 8)), to = Math.min(24, Math.max(last, from + 3));
+        const from = Math.max(0, first - 1), to = Math.min(24, Math.max(last + 1, from + 3));
         const hours = Array.from({ length: to - from + 1 }, (_, i) => from + i);
         return (
           <section className="tl-day" key={day}>

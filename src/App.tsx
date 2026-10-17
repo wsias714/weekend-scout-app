@@ -152,7 +152,8 @@ export default function App() {
       <header className="top">
         <div>
           <h1>Weekend Scout</h1>
-          <p className="sub">{feed ? `Updated ${new Date(feed.generated).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" })}` : "Loading…"}</p>
+          <p className="sub">{feed ? `Updated ${new Date(feed.generated).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" })}` : "Loading…"}
+            {feed && Date.now() - new Date(feed.generated).getTime() > 36 * 3600e3 && <b className="stale"> · may be out of date</b>}</p>
         </div>
         <button className="pill" onClick={() => setShowSettings(true)} aria-label="Sync settings">
           <span className={`dot ${status.kind}`} />
