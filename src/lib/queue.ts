@@ -13,7 +13,7 @@ export interface Queued {
 }
 
 export const newKey = (item: InboxItem, rand = Math.random) =>
-  `${item.at.replace(/[^0-9]/g, "")}-${item.event_id}-${Math.floor(rand() * 1e6).toString(36)}`;
+  `${item.at.replace(/[^0-9]/g, "")}-${item.type === "source" ? "source" : item.event_id}-${Math.floor(rand() * 1e6).toString(36)}`;
 
 export function enqueue(q: Queued[], item: InboxItem, rand = Math.random): Queued[] {
   return [...q, { key: newKey(item, rand), item }];
@@ -51,6 +51,7 @@ export function overlay(feed: Feed | null, q: Queued[]): StateMap {
   const out: StateMap = {};
   for (const [id, d] of Object.entries(feed?.decisions ?? {})) out[id] = { ...d };
   for (const { item } of q) {
+    if (item.type === "source") continue;
     const cur = (out[item.event_id] ??= {});
     if (item.type === "decision") {
       cur.decision = item.decision;

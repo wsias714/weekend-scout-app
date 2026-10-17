@@ -3,7 +3,8 @@ import type { Decision, EvergreenItem, Feed, InboxItem, ScoutEvent, SectionKey }
 import * as dbx from "./lib/dropbox.ts";
 import { enqueue, flush, overlay } from "./lib/queue.ts";
 import type { Queued } from "./lib/queue.ts";
-import { isWeekend, when } from "./lib/format.ts";
+import { drive, isWeekend, when } from "./lib/format.ts";
+import SourcesView from "./Sources.tsx";
 import Timeline from "./Timeline.tsx";
 
 const K = { feed: "ws-feed", queue: "ws-queue" };
@@ -23,13 +24,14 @@ const save = (k: string, v: unknown) => {
   }
 };
 
-type Kind = "family" | "date_night" | "plan_ahead" | "evergreen";
+type Kind = "family" | "date_night" | "plan_ahead" | "evergreen" | "sources";
 type When = "this_weekend" | "next_2_weeks" | "weeks_3_4" | "homeschool_day_trips";
 const KINDS: { key: Kind; label: string }[] = [
   { key: "family", label: "Family" },
   { key: "date_night", label: "Date night" },
   { key: "plan_ahead", label: "Plan ahead" },
   { key: "evergreen", label: "Evergreen" },
+  { key: "sources", label: "Sources" },
 ];
 const WHENS: { key: When; label: string }[] = [
   { key: "this_weekend", label: "This weekend" },
@@ -42,7 +44,7 @@ const EMPTY: Record<SectionKey, string> = {
   did_you_go: "", this_weekend: "Nothing strong this weekend.", next_2_weeks: "Nothing in the next two weeks yet.",
   weeks_3_4: "Nothing in weeks 3–4 yet.", homeschool_day_trips: "No weekday outings this week.",
   date_night: "No date-night picks yet. They appear once newsletters are read for events.",
-  plan_ahead: "Nothing to plan ahead for yet.", evergreen: "No evergreen ideas yet.",
+  plan_ahead: "Nothing to plan ahead for yet.", evergreen: "No evergreen ideas yet.", sources: "",
 };
 
 type Status = { kind: "demo" | "ok" | "offline" | "error"; at?: number; msg?: string };
@@ -139,7 +141,7 @@ export default function App() {
 
   const state = useMemo(() => overlay(feed, queue), [feed, queue]);
   const items = useMemo(() => {
-    const list = tab === "evergreen" ? [] : feed?.sections[tab] ?? [];
+    const list = tab === "evergreen" || tab === "sources" ? [] : feed?.sections[tab] ?? [];
     return list.filter((e) => (!freeOnly || e.cost === "Free") && (!weekendOnly || isWeekend(e.start)))
       .filter((e) => state[e.id]?.decision !== "pass");
   }, [feed, tab, freeOnly, weekendOnly, state]);
@@ -177,10 +179,9 @@ export default function App() {
       <div className="nav">
         <div className="seg kinds" role="tablist" aria-label="What">
           {KINDS.map((k) => {
-            const n = k.key === "family" ? WHENS.reduce((t, w) => t + (feed?.sections[w.key]?.length ?? 0), 0) : feed?.sections[k.key]?.length ?? 0;
             return (
               <button key={k.key} role="tab" aria-selected={kind === k.key} className={kind === k.key ? "on" : ""} onClick={() => setKind(k.key)}>
-                {k.label}<span className="n">{n}</span>
+                {k.label}
               </button>
             );
           })}
@@ -196,7 +197,7 @@ export default function App() {
         )}
       </div>
       <div className="filters">
-        {kind !== "evergreen" && (<>
+        {kind !== "evergreen" && kind !== "sources" && (<>
           <label><input type="checkbox" checked={freeOnly} onChange={(e) => setFreeOnly(e.target.checked)} /> Free</label>
           {tab !== "this_weekend" && (
             <label><input type="checkbox" checked={weekendOnly} onChange={(e) => setWeekendOnly(e.target.checked)} /> Weekend</label>
@@ -216,15 +217,17 @@ export default function App() {
 
       <main>
         {tab === "evergreen" && <Evergreen items={feed?.sections.evergreen ?? []} />}
-        {tab !== "evergreen" && items.length === 0 && (
+        {tab === "sources" && <SourcesView feed={feed} queue={queue} connected={connected}
+          onSuggest={(url, note) => send({ type: "source", url, note, at: new Date().toISOString() })} />}
+        {tab !== "evergreen" && tab !== "sources" && items.length === 0 && (
           <p className="empty">
             {freeOnly || weekendOnly ? "Nothing here with those filters." : EMPTY[tab]}
           </p>
         )}
-        {tab !== "evergreen" && view === "timeline" && items.length > 0 && (
+        {tab !== "evergreen" && tab !== "sources" && view === "timeline" && items.length > 0 && (
           <Timeline items={items} onOpen={setDetail} status={(id) => state[id]?.decision} />
         )}
-        {tab !== "evergreen" && view === "list" && items.map((e) => (
+        {tab !== "evergreen" && tab !== "sources" && view === "list" && items.map((e) => (
           <Card key={e.id} ev={e} st={state[e.id]} onDecide={(d) => (!connected ? setShowSettings(true) : d === "go" ? setSheet(e) : decide(e, d))} />
         ))}
       </main>
@@ -272,6 +275,7 @@ function Card({ ev, st, onDecide }: { ev: ScoutEvent; st?: { decision?: Decision
       <div className="chips">
         <span className={`chip ${ev.cost === "Free" ? "free" : ""}`}>{ev.cost}</span>
         <span className="chip">Ages {ev.age_fit}</span>
+        {drive(ev.drive_min) && <span className="chip">{drive(ev.drive_min)}</span>}
         {ev.registration !== "none" && <span className="chip warn">Register: {ev.registration}</span>}
         {ev.homeschool_subjects.map((s) => <span className="chip subj" key={s}>{s}</span>)}
       </div>

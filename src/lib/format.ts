@@ -24,3 +24,5 @@ export const minutesOf = (iso?: string | null): number | null => {
 };
 export const dayLabel = (iso: string) => when(iso.slice(0, 10));
 export const clock = (min: number) => `${Math.floor(min / 60) % 12 || 12}${min % 60 ? `:${String(min % 60).padStart(2, "0")}` : ""}${Math.floor(min / 60) < 12 ? "a" : "p"}`;
+
+export const drive = (min?: number | null) => (min ? `~${min} min drive` : "");

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17T15:33:31",
+ "generated": "2026-10-17T16:01:04",
  "today": "2026-10-17",
  "sections": {
   "did_you_go": [],
@@ -33,7 +33,8 @@
     "why": "Free + Science + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "See the spooky side of science at this scary good show!"
+    "summary": "See the spooky side of science at this scary good show!",
+    "drive_min": 5
    },
    {
     "id": "c8a86d838d0a",
@@ -64,7 +65,8 @@
     "why": "Free + Math + Foothill Ranch",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Come color and solve puzzles during this hour of fun! This program is good for all ages."
+    "summary": "Come color and solve puzzles during this hour of fun! This program is good for all ages.",
+    "drive_min": 8
    },
    {
     "id": "3aae2f606d38",
@@ -97,7 +99,8 @@
     "why": "Free + Science + Dana Point",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Explore the ocean with us! Join our semi-private guided snorkel tours and explore the stunning marine life of Shaw\u2019s Cove!"
+    "summary": "Explore the ocean with us! Join our semi-private guided snorkel tours and explore the stunning marine life of Shaw\u2019s Cove!",
+    "drive_min": 33
    },
    {
     "id": "a44e727da9f2",
@@ -129,7 +132,8 @@
     "why": "Social Studies + Dana Point",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Add-on experience for General Admission! Dive into a hands-on experience suitable for all levels of curiosity with our squid dissections!"
+    "summary": "Add-on experience for General Admission! Dive into a hands-on experience suitable for all levels of curiosity with our squid dissections!",
+    "drive_min": 33
    },
    {
     "id": "7433e1692da4",
@@ -161,7 +165,8 @@
     "why": "Social Studies + Dana Point",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "General Admission Add-on Experience! Have you ever wanted to hand-feed a sea star?"
+    "summary": "General Admission Add-on Experience! Have you ever wanted to hand-feed a sea star?",
+    "drive_min": 33
    },
    {
     "id": "8ac8eee05a41",
@@ -193,7 +198,8 @@
     "why": "Social Studies + Dana Point",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Add-on experience for General Admission! Dive into a hands-on experience suitable for all levels of curiosity with our squid dissections!"
+    "summary": "Add-on experience for General Admission! Dive into a hands-on experience suitable for all levels of curiosity with our squid dissections!",
+    "drive_min": 33
    }
   ],
   "next_2_weeks": [
@@ -227,7 +233,8 @@
     "why": "Free + Social Studies + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Learn how to make a spooky ghost portrait out of recycled egg cartons! Materials provided while supplies last."
+    "summary": "Learn how to make a spooky ghost portrait out of recycled egg cartons! Materials provided while supplies last.",
+    "drive_min": 5
    },
    {
     "id": "6a9b43952bfb",
@@ -259,7 +266,8 @@
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Put on your costumes and head to the El Toro Library for a round of trick-or-treating! Candy, crafts and coloring available while supplies last."
+    "summary": "Put on your costumes and head to the El Toro Library for a round of trick-or-treating! Candy, crafts and coloring available while supplies last.",
+    "drive_min": 5
    },
    {
     "id": "ce388fec6b0a",
@@ -291,7 +299,8 @@
     "why": "Free + Social Studies + Foothill Ranch",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Tweens and teens can get into the spooky spirit with an afternoon of creepy-cute crafts, like tote bag decorating, bracelets, and more, while snacking on some tasty treats."
+    "summary": "Tweens and teens can get into the spooky spirit with an afternoon of creepy-cute crafts, like tote bag decorating, bracelets, and more, while snacking on some tasty treats.",
+    "drive_min": 8
    },
    {
     "id": "7d1a2e3f1dde",
@@ -323,7 +332,8 @@
     "why": "Free + ELA + Foothill Ranch",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Tired of playing monopoly? Join us for a fun hour and discover new board games to play with family and friends."
+    "summary": "Tired of playing monopoly? Join us for a fun hour and discover new board games to play with family and friends.",
+    "drive_min": 8
    },
    {
     "id": "e9797d1fe654",
@@ -356,7 +366,8 @@
     "why": "Free + Science + Foothill Ranch",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Unleash your creativity as you paint on your own canvas for a few minutes, then swap with a neighbor to create one-of-a-kind shared masterpieces. All ages welcome."
+    "summary": "Unleash your creativity as you paint on your own canvas for a few minutes, then swap with a neighbor to create one-of-a-kind shared masterpieces. All ages welcome.",
+    "drive_min": 8
    },
    {
     "id": "04b637e7cc77",
@@ -387,7 +398,8 @@
     "why": "Free + Science + Foothill Ranch",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Learn about chemical reactions in this STEAM activity! Turn a film canister into a spooky creature and watch it fly off into the sky as pressure builds in a film canister rocket!"
+    "summary": "Learn about chemical reactions in this STEAM activity! Turn a film canister into a spooky creature and watch it fly off into the sky as pressure builds in a film canister rocket!",
+    "drive_min": 8
    }
   ],
   "weeks_3_4": [
@@ -421,7 +433,8 @@
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Come to the library and pick up a craft to take home! All materials provided while supplies last."
+    "summary": "Come to the library and pick up a craft to take home! All materials provided while supplies last.",
+    "drive_min": 5
    },
    {
     "id": "336e01240d54",
@@ -452,39 +465,41 @@
     "why": "Free + Art + Aliso Viejo",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Family-friendly market where artists, crafters and designers sell locally made goods. Photo opportunities and food for purchase. Cost: Free."
+    "summary": "Family-friendly market where artists, crafters and designers sell locally made goods. Photo opportunities and food for purchase. Cost: Free.",
+    "drive_min": 15
    },
    {
-    "id": "50bd885613c4",
-    "title": "Bowers Museum's Mexican Day of the Dead",
-    "start": "2026-11-01T11:00",
-    "end": "2026-11-01T15:00",
+    "id": "ece77536c7c2",
+    "title": "Duff Goldman: Candy Bar Magic",
+    "start": "2026-11-08T13:00",
+    "end": null,
     "all_day": 0,
-    "venue": "Bowers Museum, Key Courtyard",
-    "city": "Santa Ana",
-    "area_tier": 2,
-    "cost": "Free",
+    "venue": "Merage JCC",
+    "city": "Irvine",
+    "area_tier": 1,
+    "cost": "unknown",
     "age_fit": "kids",
     "registration": "none",
     "reg_deadline": null,
-    "category": "museum",
+    "category": "community",
     "homeschool_subjects": [
-     "Social Studies",
+     "Science",
      "Art"
     ],
     "homeschool_hook": "",
     "physical_activity": "low",
-    "score": 88.0,
+    "score": 89.0,
     "bucket": "weeks_3_4",
-    "source": "ocnet_free",
-    "source_url": "https://www.bowers.org/index.php/programs/family-programs/mexican-day-of-the-dead-3",
+    "source": "mail:jccoc.ccsend.com",
+    "source_url": "",
     "first_seen": "2026-10-17",
     "status": "new",
     "audience": "family",
-    "why": "Free + Social Studies + Santa Ana",
+    "why": "Science + Irvine",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Free family festival with live performances, art making, face painting and complimentary treats in the museum's Key Courtyard. Cost: Free."
+    "summary": "Cake artist Duff Goldman gives a live demonstration showing kids how their favorite candy bars are made, with tips and tricks along the way.",
+    "drive_min": 15
    }
   ],
   "homeschool_day_trips": [
@@ -517,7 +532,8 @@
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Join us for a bilingual storytime for the entire family! Enjoy family stories, songs, and activities. Acomp\u00e1\u00f1enos para un tiempo de cuentos biling\u00fces."
+    "summary": "Join us for a bilingual storytime for the entire family! Enjoy family stories, songs, and activities. Acomp\u00e1\u00f1enos para un tiempo de cuentos biling\u00fces.",
+    "drive_min": 5
    },
    {
     "id": "526e6ef5ac0f",
@@ -548,7 +564,8 @@
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Join us for a morning playdate at the El Toro Library and enjoy sensory child-directed play. We will explore a variety of textures, activities, and more."
+    "summary": "Join us for a morning playdate at the El Toro Library and enjoy sensory child-directed play. We will explore a variety of textures, activities, and more.",
+    "drive_min": 5
    },
    {
     "id": "6ba4174b7a27",
@@ -579,7 +596,8 @@
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Join us for an early literacy program for families with children ages 0-8 years old. We will read books, sing songs, and make new friends!"
+    "summary": "Join us for an early literacy program for families with children ages 0-8 years old. We will read books, sing songs, and make new friends!",
+    "drive_min": 5
    },
    {
     "id": "aba4ba835cc2",
@@ -611,7 +629,8 @@
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Join us for some coloring fun at El Toro Library! Children will have a chance to color, draw, and paint with a variety of materials. All materials provided. While supplies last."
+    "summary": "Join us for some coloring fun at El Toro Library! Children will have a chance to color, draw, and paint with a variety of materials. All materials provided. While supplies last.",
+    "drive_min": 5
    },
    {
     "id": "bceb20a9ca7f",
@@ -642,10 +661,111 @@
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
     "sitter_needed": 0,
-    "summary": "Practice your language skills in English or Spanish! Fluency in either language is NOT a requirement. All ages are welcome. Practique la lectura en ingl\u00e9s o espa\u00f1ol."
+    "summary": "Practice your language skills in English or Spanish! Fluency in either language is NOT a requirement. All ages are welcome. Practique la lectura en ingl\u00e9s o espa\u00f1ol.",
+    "drive_min": 5
    }
   ],
-  "date_night": [],
+  "date_night": [
+   {
+    "id": "a1d001f20689",
+    "title": "Halloween Saturday Blues Dance Party",
+    "start": "2026-10-24T20:30",
+    "end": "2026-10-25T00:00",
+    "all_day": 0,
+    "venue": "ATOMIC Ballroom",
+    "city": "Irvine",
+    "area_tier": 1,
+    "cost": "$16",
+    "age_fit": "all ages",
+    "registration": "none",
+    "reg_deadline": null,
+    "category": "community",
+    "homeschool_subjects": [
+     "PE",
+     "Art"
+    ],
+    "homeschool_hook": "",
+    "physical_activity": "high",
+    "score": 90.5,
+    "bucket": "date_night",
+    "source": "mail:hirefrederick.com",
+    "source_url": "http://cl.hirefrederick.com/ls/click?upn=u001.Q1lf5EIQA6nCHEhfZxq6qgnSMPyxWyfAZNXDuSmQRBGMgBIOfXT4a-2FOkDluiY4ZdCmcJIPxoR0kZNczwmw7S8s1Qd0ULp8HUF1N3utNZOvqrjBrt-2BBSKntmlQxllqDdzUXURcZ-2FHM8TFyX-2BWIEK5eOrtQthFOEZSqmC3l-2B2D6VEnEHOUnc-2BNbZ0EdrG-2FX4MsRY630M69Oi4ZSfZhvNcQH4-2FjcBx4ti1qXzRVH6hrLSGSfJU-2BOdsh4f5NzVwk7qPd-2F7AmoTDecl-2FenVxl6E7CB3dbpQBc1P9eE2QyUOIgkAwcB1tzRp9Aax2-2BVTbvaCtw-abl_M5zEGzv8HIYDVrXcjWKtALovVsvFDDuPPVurbEzZlGDjK4z-2FnfUcV7O17Idbe4aRcT13KXdG8CzJ5hEdEyTF0RKUnzLL8-2BrP62OEk2EFEKgSwYdvZW7Uj1-2FncZAZC2xH1bO-2B1G7mEX7yX1daThWOlQIxrrso5yoUS-2Fj5LJojqBnlGSfZjcEp0Xu18odxMsRVSswxegGBLSYgiS-2BDBBzzGX-2BT1MG63jB6JHhw3kmYOIUhCGg2oNHGiHdtQnibtzuMAS-2FhzhoGQFDN41uqalwL-2FgqQCCxX2i9w9IvNRYiDpq8-3D",
+    "first_seen": "2026-10-17",
+    "status": "new",
+    "audience": "date_night",
+    "why": "Date night",
+    "on_sale": null,
+    "sitter_needed": 0,
+    "summary": "The night opens with an All-Levels Blues Dance Lesson at 8:30pm, followed by a social dance at 9:15pm with traditional and contemporary DJ'd Blues music.",
+    "drive_min": 15
+   },
+   {
+    "id": "7cfd2059d335",
+    "title": "SOULVILLE Dance Party",
+    "start": "2026-10-18T12:00",
+    "end": "2026-10-18T16:00",
+    "all_day": 0,
+    "venue": "ATOMIC Ballroom",
+    "city": "Irvine",
+    "area_tier": 1,
+    "cost": "unknown",
+    "age_fit": "all ages",
+    "registration": "none",
+    "reg_deadline": null,
+    "category": "community",
+    "homeschool_subjects": [
+     "PE",
+     "Art"
+    ],
+    "homeschool_hook": "",
+    "physical_activity": "high",
+    "score": 77.5,
+    "bucket": "date_night",
+    "source": "mail:hirefrederick.com",
+    "source_url": "http://cl.hirefrederick.com/ls/click?upn=u001.Q1lf5EIQA6nCHEhfZxq6qgnSMPyxWyfAZNXDuSmQRBHeP7cDdTwqAJ97W-2Fa-2F4KYB1braOfHX6PucDwikRTW-2BYkeptb8G2gDtQ2CqqowtW6X8It3GKrBdy0CL7Cnd6l-2FM6fqOgMddNTGMH8ir0sa-2Baul8HmsgabJgMyYenOkgXAh3P3oIJDRX0furPDbbsBz69olMJcnUvT2c2xVcDFU91anBJyKTplBtgEBCiL0BT2ZkDLAChR3fkq0LbuiU0w0Bl5vLWyPcnqD98TZPzt5xYAGhZ-2BHRcenlLCZEZ9R0JhxYBk38Q3s8TFW82JmkO0bTRDtZ_M5zEGzv8HIYDVrXcjWKtALovVsvFDDuPPVurbEzZlGDjK4z-2FnfUcV7O17Idbe4aRB3x9IgMOCnBpL83wccgj-2F0s7WilU1SVejFSCCOAIw7QcEIu8B7QuiWIL0mTl1IIdJFN24-2FPpJoOpvhsIeT6UWTyxBXAHE-2Fws4OHalCGzz8vsdATk7rRGvXUO-2Fu0a-2Fu-2BPApQrgZu-2Fgg7TD8EKyPGAgtlcyHEoKkDQ4eHvOYi3IHQGJb1EU62zXyrFGmi8XCshGSr5mcDUqf5VFYAxiWSaSd9wuC37mU7G-2BPRnTkjFLLE-3D",
+    "first_seen": "2026-10-17",
+    "status": "new",
+    "audience": "date_night",
+    "why": "Date night",
+    "on_sale": null,
+    "sitter_needed": 0,
+    "summary": "An afternoon dance party with Soul, Doo-Wop, R&B, Motown, Funk, and more, hosted by Andrea Gordon with DJs Sarah Ssentongo & Anneliese Silvestre.",
+    "drive_min": 15
+   },
+   {
+    "id": "a9a23e83d5c4",
+    "title": "Ballroom Dance Dialog: Connect. Lead. Follow.",
+    "start": "2026-10-24T12:15",
+    "end": "2026-10-24T13:45",
+    "all_day": 0,
+    "venue": "ATOMIC Ballroom",
+    "city": "Irvine",
+    "area_tier": 1,
+    "cost": "$22",
+    "age_fit": "all ages",
+    "registration": "none",
+    "reg_deadline": null,
+    "category": "community",
+    "homeschool_subjects": [
+     "PE",
+     "Art"
+    ],
+    "homeschool_hook": "",
+    "physical_activity": "high",
+    "score": 77.5,
+    "bucket": "date_night",
+    "source": "mail:hirefrederick.com",
+    "source_url": "http://cl.hirefrederick.com/ls/click?upn=u001.Q1lf5EIQA6nCHEhfZxq6qgnSMPyxWyfAZNXDuSmQRBH1-2BCEYDE-2Fg73Js-2FCvybaUV5PnSL1MfYELxsRni89gy38-2F4reW03eD0xwtAIZAGfPRKG3mqwWwAexdtiBLENNIrqRCxlUWPL3EoizPYH8J8SF1i50UE3q5XhW28tPd1tNLdRHbCWaL-2FcDOuZ-2FroCiyrbWDu3Nl4sq3NPFOi4udvdBq-2BMnvCjbvCBe-2BY459cmKTq9nIwULUR-2FEVqSwqD1ZKC8Zi7jSxUNa4NRphatH38bSjJzu8FLjhuKLJFt19EXjra2UJiAn-2B1Y4N8-2BmCnYbt2CQfl_M5zEGzv8HIYDVrXcjWKtALovVsvFDDuPPVurbEzZlGDjK4z-2FnfUcV7O17Idbe4aRwYTCFKoJnPlEPg0YO5bwKhKKa-2F2IobJHRIbQSN1OJA-2FT8R5mTDGgD9jYIwU-2B1sGXILVrYwWoF4nBNPyf36JI0q7jphXufen-2FLBQbwDrDkNzFkHbjUeyyTtevdPuPr8JnXQiLRmuD7HySa-2BYMfIVZUi6PoWPGujIYNPVqvuW8NtwZj7xxvaN34jN0V2GMfPi9OPzRMpr8MsnUdbJX1n9G-2BExcB8pTwPtbCpXSp-2B-2FBAlI-3D",
+    "first_seen": "2026-10-17",
+    "status": "new",
+    "audience": "date_night",
+    "why": "Date night",
+    "on_sale": null,
+    "sitter_needed": 0,
+    "summary": "An intermediate ballroom intensive with Brian on communicating between Lead and Follow through body movement, touch, and timing. The session runs 90 minutes.",
+    "drive_min": 15
+   }
+  ],
   "plan_ahead": [],
   "evergreen": [
    {
@@ -674,8 +794,427 @@
     "member": false,
     "note": "Frequent stop. Free, with storytimes and kids programs; check the branch calendar.",
     "url": "https://www.ocpl.org/locations/mission-viejo"
+   },
+   {
+    "id": "old_town_tustin_market",
+    "name": "Old Town Tustin Farmers Market",
+    "city": "Tustin",
+    "kind": "market",
+    "member": false,
+    "note": "Wednesdays and Saturdays at Main Street and El Camino Real (per oldtowntustin.com). Free to walk around; the district also has shops and restaurants.",
+    "url": "https://www.oldtowntustin.com/"
    }
   ]
  },
- "decisions": {}
+ "decisions": {},
+ "sources": [
+  {
+   "key": "ocpl_eltoro",
+   "label": "El Toro Library",
+   "kind": "feed",
+   "enabled": true,
+   "stage": 1,
+   "events": 33,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_foothill",
+   "label": "Foothill Ranch Library",
+   "kind": "feed",
+   "enabled": true,
+   "stage": 1,
+   "events": 16,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_lagunahills",
+   "label": "Laguna Hills Library",
+   "kind": "feed",
+   "enabled": true,
+   "stage": 1,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocean_institute",
+   "label": "Ocean Institute",
+   "kind": "feed",
+   "enabled": true,
+   "stage": 1,
+   "events": 24,
+   "url": "https://oceaninstitute.org/?post_type=tribe_events&ical=1",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "sherman",
+   "label": "Sherman Library & Gardens",
+   "kind": "feed",
+   "enabled": true,
+   "stage": 1,
+   "events": 7,
+   "url": "https://thesherman.org/?post_type=tribe_events&ical=1",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_laguna_niguel",
+   "label": "Laguna Niguel Library",
+   "kind": "feed",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_aliso",
+   "label": "Aliso Viejo Library",
+   "kind": "feed",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_danapoint",
+   "label": "Dana Point Library",
+   "kind": "feed",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_rsm",
+   "label": "RSM Library",
+   "kind": "feed",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_sjc",
+   "label": "SJC Library",
+   "kind": "feed",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_laguna_beach",
+   "label": "Laguna Beach Library",
+   "kind": "feed",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocpl_costamesa",
+   "label": "Costa Mesa Library",
+   "kind": "feed",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocnet_weekend",
+   "label": "OrangeCounty.net: this weekend",
+   "kind": "page",
+   "enabled": true,
+   "stage": 2,
+   "events": 5,
+   "url": "https://orangecounty.net/mobile/weekend_events.html",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocnet_free",
+   "label": "OrangeCounty.net: free events",
+   "kind": "page",
+   "enabled": true,
+   "stage": 2,
+   "events": 7,
+   "url": "https://orangecounty.net/mobile/events_free.html",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocnet_edu",
+   "label": "OrangeCounty.net: educational",
+   "kind": "page",
+   "enabled": true,
+   "stage": 2,
+   "events": 5,
+   "url": "https://orangecounty.net/mobile/events_edu.html",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "ocparks",
+   "label": "OC Parks events page",
+   "kind": "page",
+   "enabled": true,
+   "stage": 2,
+   "events": 0,
+   "url": "https://parks.oc.gov/events",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "tustin_chamber",
+   "label": "Tustin Chamber calendar",
+   "kind": "page",
+   "enabled": true,
+   "stage": 2,
+   "events": 0,
+   "url": "https://business.tustinchamber.org/events/calendar/",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "occa",
+   "label": "OC tourism events (oc-ca.com)",
+   "kind": "page",
+   "enabled": true,
+   "stage": 2,
+   "events": 4,
+   "url": "https://www.oc-ca.com/events/",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "mission_viejo",
+   "label": "City of Mission Viejo",
+   "kind": "page",
+   "enabled": false,
+   "stage": 3,
+   "events": 0,
+   "url": "https://www.missionviejo.gov/events",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "lakeforest",
+   "label": "City of Lake Forest",
+   "kind": "page",
+   "enabled": false,
+   "stage": 3,
+   "events": 0,
+   "url": "https://www.lakeforestca.gov/calendar.php",
+   "note": "needs headless render",
+   "user": false
+  },
+  {
+   "key": "laguna",
+   "label": "City of Laguna Beach",
+   "kind": "page",
+   "enabled": false,
+   "stage": 3,
+   "events": 0,
+   "url": "https://www.lagunabeachcity.net/",
+   "note": "403 to scripts",
+   "user": false
+  },
+  {
+   "key": "ocparks.com",
+   "label": "ocparks.com",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 7,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "pretendcity.org",
+   "label": "pretendcity.org",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "discoverycube.org",
+   "label": "discoverycube.org",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 1,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "cityofirvine@public.govdelivery.com",
+   "label": "cityofirvine@public.govdelivery.com",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 1,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "library@newportbeachca.gov",
+   "label": "library@newportbeachca.gov",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "suncoastcharter.org",
+   "label": "suncoastcharter.org",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "suncoastprep.org",
+   "label": "suncoastprep.org",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "no-reply@rs.email.nextdoor.com",
+   "label": "no-reply@rs.email.nextdoor.com",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "Lake Forest Events digest",
+   "user": false
+  },
+  {
+   "key": "hbpl.org",
+   "label": "hbpl.org",
+   "kind": "mail",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "sports@newportbeachca.gov",
+   "label": "sports@newportbeachca.gov",
+   "kind": "mail",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "jccoc.ccsend.com",
+   "label": "jccoc.ccsend.com",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 2,
+   "events": 2,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "nbplf.foundation",
+   "label": "nbplf.foundation",
+   "kind": "mail",
+   "enabled": false,
+   "stage": 2,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "anaheimducks.com",
+   "label": "anaheimducks.com",
+   "kind": "mail",
+   "enabled": false,
+   "stage": 3,
+   "events": 0,
+   "url": "",
+   "note": "",
+   "user": false
+  },
+  {
+   "key": "venues.ocvibe.com",
+   "label": "venues.ocvibe.com",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 0,
+   "url": "",
+   "note": "date night",
+   "user": false
+  },
+  {
+   "key": "scfta.org",
+   "label": "scfta.org",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 1,
+   "events": 2,
+   "url": "",
+   "note": "kids shows -> family, adult -> date night",
+   "user": false
+  },
+  {
+   "key": "hirefrederick.com",
+   "label": "hirefrederick.com",
+   "kind": "mail",
+   "enabled": true,
+   "stage": 2,
+   "events": 3,
+   "url": "",
+   "note": "ATOMIC Ballroom dance nights",
+   "user": false
+  }
+ ],
+ "suggestions": []
 }
