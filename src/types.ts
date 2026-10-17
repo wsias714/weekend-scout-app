@@ -17,16 +17,21 @@ export interface ScoutEvent {
   source_url: string;
   audience: "family" | "date_night";
   why: string;
+  summary?: string;
+}
+
+export interface EvergreenItem {
+  id: string; name: string; city: string; kind: string; member: boolean; note: string; url: string;
 }
 
 export type SectionKey =
   | "did_you_go" | "this_weekend" | "next_2_weeks" | "weeks_3_4"
-  | "homeschool_day_trips" | "date_night" | "plan_ahead";
+  | "homeschool_day_trips" | "date_night" | "plan_ahead" | "evergreen";
 
 export interface Feed {
   generated: string;
   today: string;
-  sections: Record<SectionKey, ScoutEvent[]>;
+  sections: Record<Exclude<SectionKey, "evergreen">, ScoutEvent[]> & { evergreen?: EvergreenItem[] };
   decisions: Record<string, { decision: Decision; homeschool: boolean; attended: string | null }>;
 }
 

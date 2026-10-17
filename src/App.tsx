@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { Decision, Feed, InboxItem, ScoutEvent, SectionKey } from "./types.ts";
+import type { Decision, EvergreenItem, Feed, InboxItem, ScoutEvent, SectionKey } from "./types.ts";
 import * as dbx from "./lib/dropbox.ts";
 import { enqueue, flush, overlay } from "./lib/queue.ts";
 import type { Queued } from "./lib/queue.ts";
 import { isWeekend, when } from "./lib/format.ts";
+import Timeline from "./Timeline.tsx";
 
 const K = { feed: "ws-feed", queue: "ws-queue" };
 const read = <T,>(k: string, d: T): T => {
@@ -29,13 +30,14 @@ const TABS: { key: SectionKey; label: string }[] = [
   { key: "homeschool_day_trips", label: "Day trips" },
   { key: "date_night", label: "Date night" },
   { key: "plan_ahead", label: "Plan ahead" },
+  { key: "evergreen", label: "Evergreen" },
 ];
 
 const EMPTY: Record<SectionKey, string> = {
   did_you_go: "", this_weekend: "Nothing strong this weekend.", next_2_weeks: "Nothing in the next two weeks yet.",
   weeks_3_4: "Nothing in weeks 3–4 yet.", homeschool_day_trips: "No weekday outings this week.",
   date_night: "No date-night picks yet. They appear once newsletters are read for events.",
-  plan_ahead: "Nothing to plan ahead for yet.",
+  plan_ahead: "Nothing to plan ahead for yet.", evergreen: "No evergreen ideas yet.",
 };
 
 type Status = { kind: "demo" | "ok" | "offline" | "error"; at?: number; msg?: string };
@@ -51,6 +53,9 @@ export default function App() {
   const [status, setStatus] = useState<Status>({ kind: "demo" });
   const [connected, setConnected] = useState(dbx.isConnected());
   const [undo, setUndo] = useState<ScoutEvent | null>(null);
+  const [view, setView] = useState<"list" | "timeline">(() => read<"list" | "timeline">("ws-view", "list"));
+  const [detail, setDetail] = useState<ScoutEvent | null>(null);
+  const pickView = (v: "list" | "timeline") => { setView(v); save("ws-view", v); };
 
   const syncing = useRef<Promise<void> | null>(null);
   const sync = useCallback((q: Queued[]): Promise<void> => {
@@ -127,7 +132,7 @@ export default function App() {
 
   const state = useMemo(() => overlay(feed, queue), [feed, queue]);
   const items = useMemo(() => {
-    const list = feed?.sections[tab] ?? [];
+    const list = tab === "evergreen" ? [] : feed?.sections[tab] ?? [];
     return list.filter((e) => (!freeOnly || e.cost === "Free") && (!weekendOnly || isWeekend(e.start)))
       .filter((e) => state[e.id]?.decision !== "pass");
   }, [feed, tab, freeOnly, weekendOnly, state]);
@@ -171,17 +176,33 @@ export default function App() {
         ))}
       </nav>
       <div className="filters">
-        <label><input type="checkbox" checked={freeOnly} onChange={(e) => setFreeOnly(e.target.checked)} /> Free only</label>
-        <label><input type="checkbox" checked={weekendOnly} onChange={(e) => setWeekendOnly(e.target.checked)} /> Weekend only</label>
+        {tab !== "evergreen" && (<>
+        <label><input type="checkbox" checked={freeOnly} onChange={(e) => setFreeOnly(e.target.checked)} /> Free</label>
+        <label><input type="checkbox" checked={weekendOnly} onChange={(e) => setWeekendOnly(e.target.checked)} /> Weekend</label>
+          <span className="view" role="group" aria-label="View">
+            <button className={view === "list" ? "on" : ""} onClick={() => pickView("list")}>List</button>
+            <button className={view === "timeline" ? "on" : ""} onClick={() => pickView("timeline")}>Timeline</button>
+          </span></>
+        )}
       </div>
+      {!connected && (
+        <div className="banner">
+          <span>Demo picks only. Connect Dropbox for this week's real list.</span>
+          <button className="go" onClick={() => void beginAuth(setStatus)}>Connect</button>
+        </div>
+      )}
 
       <main>
-        {items.length === 0 && (
+        {tab === "evergreen" && <Evergreen items={feed?.sections.evergreen ?? []} />}
+        {tab !== "evergreen" && items.length === 0 && (
           <p className="empty">
             {freeOnly || weekendOnly ? "Nothing here with those filters." : EMPTY[tab]}
           </p>
         )}
-        {items.map((e) => (
+        {tab !== "evergreen" && view === "timeline" && items.length > 0 && (
+          <Timeline items={items} onOpen={setDetail} status={(id) => state[id]?.decision} />
+        )}
+        {tab !== "evergreen" && view === "list" && items.map((e) => (
           <Card key={e.id} ev={e} st={state[e.id]} onDecide={(d) => (!connected ? setShowSettings(true) : d === "go" ? setSheet(e) : decide(e, d))} />
         ))}
       </main>
@@ -190,6 +211,18 @@ export default function App() {
         <div className="snack" role="status">
           <span>Passed “{undo.title}”</span>
           <button onClick={() => { decide(undo, "maybe"); setUndo(null); }}>Undo</button>
+        </div>
+      )}
+      {detail && (
+        <div className="scrim" onClick={() => setDetail(null)}>
+          <div className="sheet" role="dialog" aria-modal="true" aria-label="Event details" onClick={(e) => e.stopPropagation()}>
+            <Card ev={detail} st={state[detail.id]} onDecide={(d) => {
+              if (!connected) { setDetail(null); setShowSettings(true); return; }
+              setDetail(null);
+              if (d === "go") setSheet(detail); else decide(detail, d);
+            }} />
+            <div className="sheet-actions"><button onClick={() => setDetail(null)}>Close</button></div>
+          </div>
         </div>
       )}
       {sheet && (
@@ -220,6 +253,7 @@ function Card({ ev, st, onDecide }: { ev: ScoutEvent; st?: { decision?: Decision
         {ev.registration !== "none" && <span className="chip warn">Register: {ev.registration}</span>}
         {ev.homeschool_subjects.map((s) => <span className="chip subj" key={s}>{s}</span>)}
       </div>
+      {ev.summary && <p className="sum">{ev.summary}</p>}
       {(ev.homeschool_hook || ev.why) && <p className="why">{ev.homeschool_hook || ev.why}</p>}
       {d ? (
         <div className="state">
@@ -262,6 +296,33 @@ function GoSheet({ ev, onClose, onConfirm }: { ev: ScoutEvent; onClose: () => vo
   );
 }
 
+/** Straight to Dropbox sign-in with the built-in app key (no sheet, no typing). */
+async function beginAuth(setStatus: (s: Status) => void) {
+  try {
+    window.location.href = await dbx.startAuth(false);
+  } catch (e) {
+    setStatus({ kind: "error", msg: e instanceof Error ? e.message : String(e) });
+  }
+}
+
+function Evergreen({ items }: { items: EvergreenItem[] }) {
+  if (items.length === 0) return <p className="empty">{EMPTY.evergreen}</p>;
+  return (
+    <>
+      <p className="note">Always-on ideas with no date. Not added to the calendar.</p>
+      {items.map((i) => (
+        <article className="card ever" key={i.id}>
+          <div className="when">{i.kind}{i.city ? ` · ${i.city}` : ""}</div>
+          <h3>{i.name}</h3>
+          <div className="chips">{i.member && <span className="chip mem">Member</span>}</div>
+          <p className="sum">{i.note}</p>
+          {i.url && <a className="open" href={i.url} target="_blank" rel="noreferrer">Open website</a>}
+        </article>
+      ))}
+    </>
+  );
+}
+
 function Settings({ status, connected, queue, onClose, onChange }: {
   status: Status; connected: boolean; queue: number; onClose: () => void; onChange: () => void;
 }) {
@@ -285,12 +346,13 @@ function Settings({ status, connected, queue, onClose, onChange }: {
         <p className="note">{queue} tap{queue === 1 ? "" : "s"} waiting to send. Status: {status.kind}{status.msg ? ` (${status.msg})` : ""}.</p>
         {!connected && (
           <>
-            <label className="field">Dropbox app key
-              <input value={key} onChange={(e) => setKey(e.target.value)} placeholder="from the WeekendScout Dropbox app" autoCapitalize="off" />
-            </label>
             <div className="sheet-actions">
               <button className="go" disabled={!key.trim()} onClick={() => connect(false)}>Connect Dropbox</button>
             </div>
+            <details>
+              <summary>Advanced: Dropbox app key</summary>
+              <input value={key} onChange={(e) => setKey(e.target.value)} placeholder="app key" autoCapitalize="off" />
+            </details>
             <details>
               <summary>Redirect didn't come back?</summary>
               <button onClick={() => connect(true)} disabled={!key.trim()}>Get a code</button>

@@ -16,3 +16,11 @@ export const isWeekend = (start: string) => {
   const d = new Date(start.length <= 10 ? `${start}T00:00` : start).getDay();
   return d === 0 || d === 6;
 };
+
+/** Minutes since midnight from "YYYY-MM-DDTHH:MM"; null for a bare date. */
+export const minutesOf = (iso?: string | null): number | null => {
+  const m = iso && /T(\d\d):(\d\d)/.exec(iso);
+  return m ? Number(m[1]) * 60 + Number(m[2]) : null;
+};
+export const dayLabel = (iso: string) => when(iso.slice(0, 10));
+export const clock = (min: number) => `${Math.floor(min / 60) % 12 || 12}${min % 60 ? `:${String(min % 60).padStart(2, "0")}` : ""}${Math.floor(min / 60) < 12 ? "a" : "p"}`;

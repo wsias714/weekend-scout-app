@@ -1,7 +1,8 @@
 {
- "generated": "2026-10-17T11:35:36",
+ "generated": "2026-10-17T14:19:41",
  "today": "2026-10-17",
  "sections": {
+  "did_you_go": [],
   "this_weekend": [
    {
     "id": "12cf2845a7bb",
@@ -31,7 +32,8 @@
     "audience": "family",
     "why": "Free + Science + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "See the spooky side of science at this scary good show!"
    },
    {
     "id": "c8a86d838d0a",
@@ -61,77 +63,14 @@
     "audience": "family",
     "why": "Free + Math + Foothill Ranch",
     "on_sale": null,
-    "sitter_needed": 0
-   },
-   {
-    "id": "fd13133e901e",
-    "title": "General Admission",
-    "start": "2026-10-17T10:00",
-    "end": "2026-10-17T15:00",
-    "all_day": 0,
-    "venue": "Ocean Institute",
-    "city": "Dana Point",
-    "area_tier": 1,
-    "cost": "Free",
-    "age_fit": "3-8",
-    "registration": "none",
-    "reg_deadline": null,
-    "category": "nature",
-    "homeschool_subjects": [
-     "Science",
-     "Social Studies",
-     "ELA"
-    ],
-    "homeschool_hook": "",
-    "physical_activity": "low",
-    "score": 100.0,
-    "bucket": "this_weekend",
-    "source": "ocean_institute",
-    "source_url": "https://oceaninstitute.org/event/general-admission-7/2026-10-17/",
-    "first_seen": "2026-10-17",
-    "status": "new",
-    "audience": "family",
-    "why": "Free + Science + Dana Point",
-    "on_sale": null,
-    "sitter_needed": 0
-   },
-   {
-    "id": "37d448cf2430",
-    "title": "General Admission",
-    "start": "2026-10-18T10:00",
-    "end": "2026-10-18T15:00",
-    "all_day": 0,
-    "venue": "Ocean Institute",
-    "city": "Dana Point",
-    "area_tier": 1,
-    "cost": "Free",
-    "age_fit": "3-8",
-    "registration": "none",
-    "reg_deadline": null,
-    "category": "nature",
-    "homeschool_subjects": [
-     "Science",
-     "Social Studies",
-     "ELA"
-    ],
-    "homeschool_hook": "",
-    "physical_activity": "low",
-    "score": 100.0,
-    "bucket": "this_weekend",
-    "source": "ocean_institute",
-    "source_url": "https://oceaninstitute.org/event/general-admission-7/2026-10-18/",
-    "first_seen": "2026-10-17",
-    "status": "new",
-    "audience": "family",
-    "why": "Free + Science + Dana Point",
-    "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Come color and solve puzzles during this hour of fun! This program is good for all ages."
    },
    {
     "id": "3aae2f606d38",
     "title": "Guided Snorkel Tour",
-    "start": "2026-10-18T02:00",
-    "end": "2026-10-18T03:30",
+    "start": "2026-10-18T09:00",
+    "end": "2026-10-18T10:30",
     "all_day": 0,
     "venue": "Ocean Institute",
     "city": "Dana Point",
@@ -157,7 +96,8 @@
     "audience": "family",
     "why": "Free + Science + Dana Point",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Explore the ocean with us! Join our semi-private guided snorkel tours and explore the stunning marine life of Shaw\u2019s Cove!"
    },
    {
     "id": "a44e727da9f2",
@@ -188,7 +128,72 @@
     "audience": "family",
     "why": "Social Studies + Dana Point",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Add-on experience for General Admission! Dive into a hands-on experience suitable for all levels of curiosity with our squid dissections!"
+   },
+   {
+    "id": "7433e1692da4",
+    "title": "Sea Star Feeding",
+    "start": "2026-10-17T12:00",
+    "end": "2026-10-17T12:35",
+    "all_day": 0,
+    "venue": "Ocean Institute",
+    "city": "Dana Point",
+    "area_tier": 1,
+    "cost": "$10",
+    "age_fit": "kids",
+    "registration": "none",
+    "reg_deadline": null,
+    "category": "community",
+    "homeschool_subjects": [
+     "Social Studies",
+     "Art"
+    ],
+    "homeschool_hook": "",
+    "physical_activity": "low",
+    "score": 95.0,
+    "bucket": "this_weekend",
+    "source": "ocean_institute",
+    "source_url": "https://oceaninstitute.org/event/sea-star-feeding-2/2026-10-17/",
+    "first_seen": "2026-10-17",
+    "status": "new",
+    "audience": "family",
+    "why": "Social Studies + Dana Point",
+    "on_sale": null,
+    "sitter_needed": 0,
+    "summary": "General Admission Add-on Experience! Have you ever wanted to hand-feed a sea star?"
+   },
+   {
+    "id": "8ac8eee05a41",
+    "title": "Squid Dissections",
+    "start": "2026-10-18T10:30",
+    "end": "2026-10-18T13:30",
+    "all_day": 0,
+    "venue": "Ocean Institute",
+    "city": "Dana Point",
+    "area_tier": 1,
+    "cost": "$5",
+    "age_fit": "kids",
+    "registration": "none",
+    "reg_deadline": null,
+    "category": "community",
+    "homeschool_subjects": [
+     "Social Studies",
+     "Art"
+    ],
+    "homeschool_hook": "",
+    "physical_activity": "low",
+    "score": 95.0,
+    "bucket": "this_weekend",
+    "source": "ocean_institute",
+    "source_url": "https://oceaninstitute.org/event/squid-dissections-2026/2026-10-18/",
+    "first_seen": "2026-10-17",
+    "status": "new",
+    "audience": "family",
+    "why": "Social Studies + Dana Point",
+    "on_sale": null,
+    "sitter_needed": 0,
+    "summary": "Add-on experience for General Admission! Dive into a hands-on experience suitable for all levels of curiosity with our squid dissections!"
    }
   ],
   "next_2_weeks": [
@@ -221,7 +226,8 @@
     "audience": "family",
     "why": "Free + Social Studies + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Learn how to make a spooky ghost portrait out of recycled egg cartons! Materials provided while supplies last."
    },
    {
     "id": "6a9b43952bfb",
@@ -252,7 +258,8 @@
     "audience": "family",
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Put on your costumes and head to the El Toro Library for a round of trick-or-treating! Candy, crafts and coloring available while supplies last."
    },
    {
     "id": "ce388fec6b0a",
@@ -283,7 +290,8 @@
     "audience": "family",
     "why": "Free + Social Studies + Foothill Ranch",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Tweens and teens can get into the spooky spirit with an afternoon of creepy-cute crafts, like tote bag decorating, bracelets, and more, while snacking on some tasty treats."
    },
    {
     "id": "7d1a2e3f1dde",
@@ -314,7 +322,8 @@
     "audience": "family",
     "why": "Free + ELA + Foothill Ranch",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Tired of playing monopoly? Join us for a fun hour and discover new board games to play with family and friends."
    },
    {
     "id": "e9797d1fe654",
@@ -346,7 +355,8 @@
     "audience": "family",
     "why": "Free + Science + Foothill Ranch",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Unleash your creativity as you paint on your own canvas for a few minutes, then swap with a neighbor to create one-of-a-kind shared masterpieces. All ages welcome."
    },
    {
     "id": "04b637e7cc77",
@@ -376,7 +386,8 @@
     "audience": "family",
     "why": "Free + Science + Foothill Ranch",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Learn about chemical reactions in this STEAM activity! Turn a film canister into a spooky creature and watch it fly off into the sky as pressure builds in a film canister rocket!"
    }
   ],
   "weeks_3_4": [
@@ -409,7 +420,8 @@
     "audience": "family",
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Come to the library and pick up a craft to take home! All materials provided while supplies last."
    },
    {
     "id": "54eb2f8ab512",
@@ -439,7 +451,8 @@
     "audience": "family",
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Earn school community service credit while volunteering at the El Toro library. Pick up your application at the Service Desk. Contact library staff for further details."
    },
    {
     "id": "ff0a89aeb3c5",
@@ -467,7 +480,8 @@
     "audience": "family",
     "why": "Free + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Join us for an hour of basic conversation in English! Enjoy games, activities, and good company while practicing your English skills."
    }
   ],
   "homeschool_day_trips": [
@@ -499,7 +513,8 @@
     "audience": "family",
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Join us for a bilingual storytime for the entire family! Enjoy family stories, songs, and activities. Acomp\u00e1\u00f1enos para un tiempo de cuentos biling\u00fces."
    },
    {
     "id": "526e6ef5ac0f",
@@ -529,7 +544,8 @@
     "audience": "family",
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Join us for a morning playdate at the El Toro Library and enjoy sensory child-directed play. We will explore a variety of textures, activities, and more."
    },
    {
     "id": "6ba4174b7a27",
@@ -559,7 +575,8 @@
     "audience": "family",
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Join us for an early literacy program for families with children ages 0-8 years old. We will read books, sing songs, and make new friends!"
    },
    {
     "id": "aba4ba835cc2",
@@ -590,7 +607,8 @@
     "audience": "family",
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Join us for some coloring fun at El Toro Library! Children will have a chance to color, draw, and paint with a variety of materials. All materials provided. While supplies last."
    },
    {
     "id": "bceb20a9ca7f",
@@ -620,10 +638,41 @@
     "audience": "family",
     "why": "Free + ELA + Lake Forest",
     "on_sale": null,
-    "sitter_needed": 0
+    "sitter_needed": 0,
+    "summary": "Practice your language skills in English or Spanish! Fluency in either language is NOT a requirement. All ages are welcome. Practique la lectura en ingl\u00e9s o espa\u00f1ol."
    }
   ],
   "date_night": [],
-  "plan_ahead": []
- }
+  "plan_ahead": [],
+  "evergreen": [
+   {
+    "id": "discovery_cube",
+    "name": "Discovery Cube OC",
+    "city": "Santa Ana",
+    "kind": "museum",
+    "member": true,
+    "note": "Family membership. Hands-on science museum; good for a rainy or hot day. Check the site for special exhibits.",
+    "url": "https://www.discoverycube.org/orange-county/"
+   },
+   {
+    "id": "santa_ana_zoo",
+    "name": "Santa Ana Zoo",
+    "city": "Santa Ana",
+    "kind": "zoo",
+    "member": true,
+    "note": "Family membership. Quick, easy outing; pairs well with Discovery Cube in the same city.",
+    "url": "https://www.santaanazoo.org/"
+   },
+   {
+    "id": "mission_viejo_library",
+    "name": "Mission Viejo Library",
+    "city": "Mission Viejo",
+    "kind": "library",
+    "member": false,
+    "note": "Frequent stop. Free, with storytimes and kids programs; check the branch calendar.",
+    "url": "https://www.ocpl.org/locations/mission-viejo"
+   }
+  ]
+ },
+ "decisions": {}
 }
