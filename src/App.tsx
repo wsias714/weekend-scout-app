@@ -23,14 +23,19 @@ const save = (k: string, v: unknown) => {
   }
 };
 
-const TABS: { key: SectionKey; label: string }[] = [
-  { key: "this_weekend", label: "This weekend" },
-  { key: "next_2_weeks", label: "Next 2 weeks" },
-  { key: "weeks_3_4", label: "Weeks 3–4" },
-  { key: "homeschool_day_trips", label: "Day trips" },
+type Kind = "family" | "date_night" | "plan_ahead" | "evergreen";
+type When = "this_weekend" | "next_2_weeks" | "weeks_3_4" | "homeschool_day_trips";
+const KINDS: { key: Kind; label: string }[] = [
+  { key: "family", label: "Family" },
   { key: "date_night", label: "Date night" },
   { key: "plan_ahead", label: "Plan ahead" },
   { key: "evergreen", label: "Evergreen" },
+];
+const WHENS: { key: When; label: string }[] = [
+  { key: "this_weekend", label: "This weekend" },
+  { key: "next_2_weeks", label: "Next 2 wks" },
+  { key: "weeks_3_4", label: "Weeks 3–4" },
+  { key: "homeschool_day_trips", label: "Weekdays" },
 ];
 
 const EMPTY: Record<SectionKey, string> = {
@@ -45,7 +50,9 @@ type Status = { kind: "demo" | "ok" | "offline" | "error"; at?: number; msg?: st
 export default function App() {
   const [feed, setFeed] = useState<Feed | null>(() => read<Feed | null>(K.feed, null));
   const [queue, setQueue] = useState<Queued[]>(() => read<Queued[]>(K.queue, []));
-  const [tab, setTab] = useState<SectionKey>("this_weekend");
+  const [kind, setKind] = useState<Kind>("family");
+  const [when_, setWhen] = useState<When>("this_weekend");
+  const tab: SectionKey = kind === "family" ? when_ : kind;
   const [freeOnly, setFreeOnly] = useState(false);
   const [weekendOnly, setWeekendOnly] = useState(false);
   const [sheet, setSheet] = useState<ScoutEvent | null>(null);
@@ -167,23 +174,38 @@ export default function App() {
         </section>
       )}
 
-      <nav className="tabs" aria-label="Sections">
-        {TABS.map((t) => (
-          <button key={t.key} className={t.key === tab ? "on" : ""} onClick={() => setTab(t.key)}>
-            {t.label}
-            <span className="n">{feed?.sections[t.key]?.length ?? 0}</span>
-          </button>
-        ))}
-      </nav>
+      <div className="nav">
+        <div className="seg kinds" role="tablist" aria-label="What">
+          {KINDS.map((k) => {
+            const n = k.key === "family" ? WHENS.reduce((t, w) => t + (feed?.sections[w.key]?.length ?? 0), 0) : feed?.sections[k.key]?.length ?? 0;
+            return (
+              <button key={k.key} role="tab" aria-selected={kind === k.key} className={kind === k.key ? "on" : ""} onClick={() => setKind(k.key)}>
+                {k.label}<span className="n">{n}</span>
+              </button>
+            );
+          })}
+        </div>
+        {kind === "family" && (
+          <div className="seg whens" role="tablist" aria-label="When">
+            {WHENS.map((w) => (
+              <button key={w.key} role="tab" aria-selected={when_ === w.key} className={when_ === w.key ? "on" : ""} onClick={() => setWhen(w.key)}>
+                {w.label}<span className="n">{feed?.sections[w.key]?.length ?? 0}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
       <div className="filters">
-        {tab !== "evergreen" && (<>
-        <label><input type="checkbox" checked={freeOnly} onChange={(e) => setFreeOnly(e.target.checked)} /> Free</label>
-        <label><input type="checkbox" checked={weekendOnly} onChange={(e) => setWeekendOnly(e.target.checked)} /> Weekend</label>
+        {kind !== "evergreen" && (<>
+          <label><input type="checkbox" checked={freeOnly} onChange={(e) => setFreeOnly(e.target.checked)} /> Free</label>
+          {tab !== "this_weekend" && (
+            <label><input type="checkbox" checked={weekendOnly} onChange={(e) => setWeekendOnly(e.target.checked)} /> Weekend</label>
+          )}
           <span className="view" role="group" aria-label="View">
             <button className={view === "list" ? "on" : ""} onClick={() => pickView("list")}>List</button>
             <button className={view === "timeline" ? "on" : ""} onClick={() => pickView("timeline")}>Timeline</button>
-          </span></>
-        )}
+          </span>
+        </>)}
       </div>
       {!connected && (
         <div className="banner">

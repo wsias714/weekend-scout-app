@@ -19,11 +19,6 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid 
 .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; border-radius: 999px; min-height: 44px; }
 .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
 .dot.ok { background: #2e9d57; } .dot.error { background: #c0392b; } .dot.offline { background: var(--accent); } .dot.demo { background: #8a8f9c; }
-.tabs { display: flex; gap: 8px; overflow-x: auto; margin: 14px -16px 0; padding: 4px 16px 8px; scrollbar-width: none; position: sticky; top: 0; background: var(--bg); z-index: 5; }
-.tabs::-webkit-scrollbar { display: none; }
-.tabs button { flex: none; border-radius: 999px; font-size: 14px; white-space: nowrap; }
-.tabs button.on { background: var(--green); color: var(--bg); border-color: var(--green); font-weight: 600; }
-.tabs .n { margin-left: 6px; opacity: .7; font-size: 12px; }
 .filters { display: flex; align-items: center; gap: 14px; white-space: nowrap; padding: 4px 2px 10px; font-size: 14px; color: var(--muted); }
 .filters label { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; }
 input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--green-2); }
@@ -78,3 +73,11 @@ details { margin-top: 12px; font-size: 14px; } details button { margin: 8px 8px 
 .banner { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--warn); border-radius: var(--radius); padding: 8px 8px 8px 14px; margin-top: 12px; font-size: 14px; }
 .ever h3 { margin: 2px 0; } .ever .chip.mem { background: var(--free); font-weight: 600; }
 .ever a.open { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; color: var(--green-2); }
+.nav { position: sticky; top: 0; z-index: 5; background: var(--bg); margin: 12px -16px 0; padding: 4px 16px 6px; display: grid; gap: 8px; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--card); }
+.seg button { border: 0; border-radius: 0; min-height: 44px; padding: 0 4px; font-size: 14px; white-space: nowrap; background: transparent; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button.on { background: var(--green); color: var(--bg); font-weight: 600; }
+.seg .n { margin-left: 4px; opacity: .7; font-size: 11.5px; }
+.seg.whens { background: transparent; } .seg.whens button { min-height: 38px; font-size: 13px; }
+.seg.whens button.on { background: var(--green-2); color: var(--bg); }
