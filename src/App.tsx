@@ -275,6 +275,16 @@ export default function App() {
   );
 }
 
+async function share(ev: ScoutEvent) {
+  const text = `${ev.title}, ${when(ev.start)}${ev.venue ? ` at ${ev.venue}` : ""}${ev.city ? `, ${ev.city}` : ""}${ev.link ? `\n${ev.link}` : ""}`;
+  try {
+    if (navigator.share) await navigator.share({ title: ev.title, text });
+    else await navigator.clipboard.writeText(text);
+  } catch {
+    /* share sheet dismissed */
+  }
+}
+
 const LABEL: Record<Decision, string> = { go: "On the calendar", maybe: "Maybe", pass: "Passed", bookmarked: "Planning ahead" };
 
 function Card({ ev, st, onDecide }: { ev: ScoutEvent; st?: { decision?: Decision; homeschool?: boolean }; onDecide: (d: Decision) => void }) {
@@ -282,7 +292,7 @@ function Card({ ev, st, onDecide }: { ev: ScoutEvent; st?: { decision?: Decision
   return (
     <article className={`card ${d ?? ""}`}>
       <div className="when">{when(ev.start)}</div>
-      <h3>{ev.source_url ? <a href={ev.source_url} target="_blank" rel="noreferrer">{ev.title}</a> : ev.title}</h3>
+      <h3>{ev.title}</h3>
       <div className="meta">
         {[ev.venue, ev.city].filter(Boolean).join(" · ")}
       </div>
@@ -295,6 +305,10 @@ function Card({ ev, st, onDecide }: { ev: ScoutEvent; st?: { decision?: Decision
       </div>
       {ev.summary && <p className="sum">{ev.summary}</p>}
       {(ev.homeschool_hook || ev.why) && <p className="why">{ev.homeschool_hook || ev.why}</p>}
+      <div className="linkrow">
+        {ev.link && <a className="evlink" href={ev.link} target="_blank" rel="noreferrer">{ev.link_kind === "event" ? "Event page" : "Website"} ↗</a>}
+        <button className="link" onClick={() => void share(ev)}>Share</button>
+      </div>
       {d ? (
         <div className="state">
           <b>{LABEL[d]}{d === "go" && st?.homeschool ? " · homeschool" : ""}</b>

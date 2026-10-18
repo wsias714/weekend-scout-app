@@ -15,6 +15,8 @@ export interface ScoutEvent {
   physical_activity: string;
   score: number;
   source_url: string;
+  link?: string;
+  link_kind?: "event" | "site" | "";
   audience: "family" | "date_night";
   why: string;
   summary?: string;
