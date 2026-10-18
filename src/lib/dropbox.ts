@@ -101,6 +101,25 @@ const summary = (e: unknown) => (e as DbxError)?.error?.error_summary ?? "";
 const isNotFound = (e: unknown) => (e as DbxError)?.status === 409 && summary(e).includes("not_found");
 const isConflict = (e: unknown) => (e as DbxError)?.status === 409 && summary(e).includes("conflict");
 
+/** Says which account and which files the app folder holds, for the "no events.json" case. */
+export async function describeFolder(): Promise<string> {
+  const dbx = client();
+  let who = "unknown account";
+  try {
+    const a = await dbx.usersGetCurrentAccount();
+    who = a.result.email;
+  } catch (e) {
+    who = `account lookup failed (${(e as Error)?.message ?? e})`;
+  }
+  try {
+    const l = await dbx.filesListFolder({ path: "" });
+    const names = l.result.entries.map((x) => x.name).join(", ") || "empty";
+    return `${who}; app folder has: ${names}`;
+  } catch (e) {
+    return `${who}; folder listing failed (${(e as Error)?.message ?? e})`;
+  }
+}
+
 export function dropboxRemote(): Remote {
   const dbx = client();
   return {

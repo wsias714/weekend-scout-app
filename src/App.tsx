@@ -104,6 +104,8 @@ export default function App() {
         const f = JSON.parse(file.text) as Feed;
         setFeed(f);
         save(K.feed, f);
+      } else {
+        throw new Error(`events.json not found. ${await dbx.describeFolder()}`);
       }
       setStatus(out.error ? { kind: "error", msg: out.error } : { kind: "ok", at: Date.now() });
     } catch (e) {
