@@ -87,3 +87,4 @@ details { margin-top: 12px; font-size: 14px; } details button { margin: 8px 8px 
 .seg button { font-size: 13px; padding: 0 2px; }
 .src-later summary { font: 700 17px Georgia, serif; color: var(--green); margin: 18px 0 8px; min-height: 44px; display: flex; align-items: center; }
 .stale { color: #c0392b; font-weight: 600; }
+.err-banner { background: #f6d9d5; color: #5a1a12; } @media (prefers-color-scheme: dark) { .err-banner { background: #4a1f1a; color: #f3d6d1; } }

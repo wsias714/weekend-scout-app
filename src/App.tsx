@@ -79,7 +79,10 @@ export default function App() {
     if (!dbx.isConnected()) {
       try {
         const res = await fetch(`${import.meta.env.BASE_URL}sample-events.json`);
-        if (res.ok && !feed) setFeed((await res.json()) as Feed);
+        if (res.ok) {
+          const sample = (await res.json()) as Feed;
+          if (!feed || feed.generated < sample.generated) { setFeed(sample); save(K.feed, sample); }
+        }
       } catch {
         /* no sample bundled */
       }
@@ -209,6 +212,13 @@ export default function App() {
           </span>
         </>)}
       </div>
+      {connected && (status.kind === "error" || status.kind === "offline") && (
+        <div className="banner err-banner" role="alert">
+          <span>{status.kind === "offline" ? "You're offline. Showing the last saved list." : `Couldn't sync: ${status.msg ?? "unknown error"}`}</span>
+          <button onClick={() => void sync(queue)}>Retry</button>
+        </div>
+      )}
+      {connected && !feed && status.kind !== "error" && <p className="empty">Loading your list…</p>}
       {!connected && (
         <div className="banner">
           <span>Demo picks only. Connect Dropbox for this week's real list.</span>
@@ -255,7 +265,7 @@ export default function App() {
         <GoSheet ev={sheet} onClose={() => setSheet(null)} onConfirm={(hs) => { decide(sheet, "go", hs); setSheet(null); }} />
       )}
       {showSettings && (
-        <Settings status={status} connected={connected} queue={queue.length}
+        <Settings status={status} connected={connected} queue={queue.length} onSync={() => void sync(queue)}
           onClose={() => setShowSettings(false)} onChange={() => setConnected(dbx.isConnected())} />
       )}
     </div>
@@ -350,8 +360,8 @@ function Evergreen({ items }: { items: EvergreenItem[] }) {
   );
 }
 
-function Settings({ status, connected, queue, onClose, onChange }: {
-  status: Status; connected: boolean; queue: number; onClose: () => void; onChange: () => void;
+function Settings({ status, connected, queue, onClose, onChange, onSync }: {
+  status: Status; connected: boolean; queue: number; onClose: () => void; onChange: () => void; onSync: () => void;
 }) {
   const [key, setKey] = useState(dbx.getAppKey());
   const [code, setCode] = useState("");
@@ -388,7 +398,7 @@ function Settings({ status, connected, queue, onClose, onChange }: {
             </details>
           </>
         )}
-        {connected && <div className="sheet-actions"><button onClick={() => { dbx.disconnect(); onChange(); }}>Disconnect</button></div>}
+        {connected && <div className="sheet-actions"><button className="go" onClick={onSync}>Sync now</button><button onClick={() => { dbx.disconnect(); onChange(); }}>Disconnect</button></div>}
         {err && <p className="err">{err}</p>}
         <div className="sheet-actions"><button onClick={onClose}>Close</button></div>
       </div>
