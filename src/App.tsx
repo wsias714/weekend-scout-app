@@ -6,6 +6,7 @@ import type { Queued } from "./lib/queue.ts";
 import { drive, isWeekend, when } from "./lib/format.ts";
 import SourcesView from "./Sources.tsx";
 import Timeline from "./Timeline.tsx";
+import { resetApp } from "./Boundary.tsx";
 
 const K = { feed: "ws-feed", queue: "ws-queue" };
 const read = <T,>(k: string, d: T): T => {
@@ -381,6 +382,7 @@ function Settings({ status, connected, queue, onClose, onChange, onSync }: {
         <h2>Sync</h2>
         <p>{connected ? "Connected to Dropbox." : "Showing demo data. Connect Dropbox to see this week's picks and send your taps."}</p>
         <p className="note">{queue} tap{queue === 1 ? "" : "s"} waiting to send. Status: {status.kind}{status.msg ? ` (${status.msg})` : ""}.</p>
+        <p className="note">Build {__BUILD__} · key …{dbx.getAppKey().slice(-4)} · {connected ? "connected" : "not connected"}</p>
         {!connected && (
           <>
             <div className="sheet-actions">
@@ -400,6 +402,7 @@ function Settings({ status, connected, queue, onClose, onChange, onSync }: {
         )}
         {connected && <div className="sheet-actions"><button className="go" onClick={onSync}>Sync now</button><button onClick={() => { dbx.disconnect(); onChange(); }}>Disconnect</button></div>}
         {err && <p className="err">{err}</p>}
+        <div className="sheet-actions"><button onClick={() => void resetApp()}>Reset app (keeps Dropbox login)</button></div>
         <div className="sheet-actions"><button onClick={onClose}>Close</button></div>
       </div>
     </div>

@@ -7,6 +7,7 @@ const base = process.env.DEPLOY_TARGET === "gh-pages" ? "/weekend-scout-app/" : 
 
 export default defineConfig({
   base,
+  define: { __BUILD__: JSON.stringify(new Date().toISOString().slice(5, 16).replace("T", " ")) },
   plugins: [
     react(),
     VitePWA({
