@@ -25,6 +25,7 @@ export interface ScoutEvent {
 
 export interface EvergreenItem {
   id: string; name: string; city: string; kind: string; member: boolean; note: string; url: string;
+  upcoming?: { title: string; start: string; link: string }[];
 }
 
 export type SectionKey =

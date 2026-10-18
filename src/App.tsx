@@ -370,6 +370,14 @@ function Evergreen({ items }: { items: EvergreenItem[] }) {
           <h3>{i.name}</h3>
           <div className="chips">{i.member && <span className="chip mem">Member</span>}</div>
           <p className="sum">{i.note}</p>
+          {i.upcoming && i.upcoming.length > 0 && (
+            <div className="upcoming">
+              <b>Coming up</b>
+              {i.upcoming.map((u) => (
+                <div key={u.title + u.start}>{when(u.start)} · {u.link ? <a href={u.link} target="_blank" rel="noreferrer">{u.title}</a> : u.title}</div>
+              ))}
+            </div>
+          )}
           {i.url && <a className="open" href={i.url} target="_blank" rel="noreferrer">Open website</a>}
         </article>
       ))}

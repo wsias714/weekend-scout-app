@@ -92,3 +92,4 @@ details { margin-top: 12px; font-size: 14px; } details button { margin: 8px 8px 
 .evlink { display: inline-flex; align-items: center; min-height: 44px; color: var(--green-2); font-weight: 600; }
 .linkrow { display: flex; align-items: center; gap: 16px; }
 .linkrow .link { min-height: 44px; }
+.upcoming { margin: 8px 0; font-size: 14px; } .upcoming b { display: block; margin-bottom: 2px; }
