@@ -26,3 +26,24 @@ export const dayLabel = (iso: string) => when(iso.slice(0, 10));
 export const clock = (min: number) => `${Math.floor(min / 60) % 12 || 12}${min % 60 ? `:${String(min % 60).padStart(2, "0")}` : ""}${Math.floor(min / 60) < 12 ? "a" : "p"}`;
 
 export const drive = (min?: number | null) => (min ? `~${min} min drive` : "");
+
+/** Today as YYYY-MM-DD in the event timezone (Pacific). The phone's own zone is wrong when travelling,
+ *  and the feed's "today" goes stale when the feed does. */
+export const localToday = (now = new Date()) => now.toLocaleDateString("en-CA", { timeZone: "America/Los_Angeles" });
+
+const dayBefore = (d: string) => {
+  const t = new Date(`${d}T00:00:00Z`);
+  t.setUTCDate(t.getUTCDate() - 1);
+  return t.toISOString().slice(0, 10);
+};
+
+/** Last day an event is on. A bare date or a midnight end is iCal's exclusive end ("ends where the next day starts"). */
+export const lastDay = (e: { start: string; end?: string | null }) => {
+  const s = e.start.slice(0, 10), end = e.end?.slice(0, 10);
+  if (!end || end <= s) return s;
+  const exclusive = e.end!.length <= 10 || /T00:00(:00)?$/.test(e.end!);
+  return exclusive ? (dayBefore(end) < s ? s : dayBefore(end)) : end;
+};
+
+/** Still worth showing on `today`: it starts today or later, or a multi-day event has not ended yet. */
+export const upcoming = (e: { start: string; end?: string | null }, today: string) => lastDay(e) >= today;

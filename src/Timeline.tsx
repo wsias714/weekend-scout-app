@@ -1,5 +1,7 @@
 import type { ScoutEvent } from "./types.ts";
 import { clock, dayLabel, minutesOf } from "./lib/format.ts";
+import { brief, hint } from "./lib/weather.ts";
+import type { Forecast } from "./lib/weather.ts";
 
 const PX = 52; // pixels per hour
 
@@ -10,7 +12,8 @@ function layout(evs: ScoutEvent[]): Block[] {
   const bs = evs
     .map((ev) => {
       const s = minutesOf(ev.start) as number;
-      const e = Math.max(minutesOf(ev.end) ?? s + 60, s + 30);
+      const end = minutesOf(ev.end);
+      const e = Math.max(end === null ? s + 60 : end <= s ? 24 * 60 : end, s + 30);   // an end before the start ran past midnight
       return { ev, s, e, col: 0, cols: 1 };
     })
     .sort((a, b) => a.s - b.s || a.e - b.e);
@@ -32,8 +35,8 @@ function layout(evs: ScoutEvent[]): Block[] {
   return bs;
 }
 
-export default function Timeline({ items, onOpen, status }: {
-  items: ScoutEvent[]; onOpen: (e: ScoutEvent) => void; status: (id: string) => string | undefined;
+export default function Timeline({ items, onOpen, status, fc }: {
+  fc: Forecast; items: ScoutEvent[]; onOpen: (e: ScoutEvent) => void; status: (id: string) => string | undefined;
 }) {
   const days = new Map<string, ScoutEvent[]>();
   for (const e of [...items].sort((a, b) => a.start.localeCompare(b.start))) {
@@ -52,7 +55,8 @@ export default function Timeline({ items, onOpen, status }: {
         const hours = Array.from({ length: to - from + 1 }, (_, i) => from + i);
         return (
           <section className="tl-day" key={day}>
-            <h3>{dayLabel(day)}</h3>
+            <h3>{dayLabel(day)}{fc[day] && <span className={`wx ${fc[day].rain >= 50 ? "wet" : ""}`}>{brief(fc[day])}</span>}</h3>
+            {fc[day] && hint(fc[day]) && <p className="wxhint">{hint(fc[day])}</p>}
             {allDay.map((e) => (
               <button className="tl-allday" key={e.id} onClick={() => onOpen(e)}>All day · {e.title}</button>
             ))}

@@ -3,10 +3,11 @@ import type { Decision, EvergreenItem, Feed, InboxItem, ScoutEvent, SectionKey }
 import * as dbx from "./lib/dropbox.ts";
 import { enqueue, flush, overlay } from "./lib/queue.ts";
 import type { Queued } from "./lib/queue.ts";
-import { drive, isWeekend, when } from "./lib/format.ts";
+import { drive, isWeekend, localToday, upcoming, when } from "./lib/format.ts";
 import SourcesView from "./Sources.tsx";
 import Timeline from "./Timeline.tsx";
 import { resetApp } from "./Boundary.tsx";
+import * as wx from "./lib/weather.ts";
 
 const K = { feed: "ws-feed", queue: "ws-queue" };
 const read = <T,>(k: string, d: T): T => {
@@ -65,6 +66,14 @@ export default function App() {
   const [undo, setUndo] = useState<ScoutEvent | null>(null);
   const [view, setView] = useState<"list" | "timeline">(() => read<"list" | "timeline">("ws-view", "list"));
   const [detail, setDetail] = useState<ScoutEvent | null>(null);
+  const [fc, setFc] = useState<wx.Forecast>(() => wx.cached()?.data ?? {});
+  useEffect(() => {
+    const go = () => void wx.load().then(setFc);
+    go();
+    const onVis = () => document.visibilityState === "visible" && go();
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
   const pickView = (v: "list" | "timeline") => { setView(v); save("ws-view", v); };
 
   const syncing = useRef<Promise<void> | null>(null);
@@ -146,11 +155,12 @@ export default function App() {
     send({ type: "attended", event_id: ev.id, value, at: new Date().toISOString() });
 
   const state = useMemo(() => overlay(feed, queue), [feed, queue]);
+  const today = localToday();   // phone's date: a feed that is a day or two old must not show finished events
   const items = useMemo(() => {
     const list = tab === "evergreen" || tab === "sources" ? [] : feed?.sections[tab] ?? [];
-    return list.filter((e) => (!freeOnly || e.cost === "Free") && (!weekendOnly || isWeekend(e.start)))
+    return list.filter((e) => upcoming(e, today)).filter((e) => (!freeOnly || e.cost === "Free") && (!weekendOnly || isWeekend(e.start)))
       .filter((e) => state[e.id]?.decision !== "pass");
-  }, [feed, tab, freeOnly, weekendOnly, state]);
+  }, [feed, tab, freeOnly, weekendOnly, state, today]);
   const askWent = (feed?.sections.did_you_go ?? []).filter((e) => !state[e.id]?.attended);
 
   return (
@@ -183,6 +193,8 @@ export default function App() {
         </section>
       )}
 
+      <WeatherStrip fc={fc} today={today} />
+
       <div className="nav">
         <div className="seg kinds" role="tablist" aria-label="What">
           {KINDS.map((k) => {
@@ -197,7 +209,7 @@ export default function App() {
           <div className="seg whens" role="tablist" aria-label="When">
             {WHENS.map((w) => (
               <button key={w.key} role="tab" aria-selected={when_ === w.key} className={when_ === w.key ? "on" : ""} onClick={() => setWhen(w.key)}>
-                {w.label}<span className="n">{feed?.sections[w.key]?.length ?? 0}</span>
+                {w.label}<span className="n">{(feed?.sections[w.key] ?? []).filter((e) => upcoming(e, today)).length}</span>
               </button>
             ))}
           </div>
@@ -239,10 +251,10 @@ export default function App() {
           </p>
         )}
         {tab !== "evergreen" && tab !== "sources" && view === "timeline" && items.length > 0 && (
-          <Timeline items={items} onOpen={setDetail} status={(id) => state[id]?.decision} />
+          <Timeline fc={fc} items={items} onOpen={setDetail} status={(id) => state[id]?.decision} />
         )}
         {tab !== "evergreen" && tab !== "sources" && view === "list" && items.map((e) => (
-          <Card key={e.id} ev={e} st={state[e.id]} onDecide={(d) => (!connected ? setShowSettings(true) : d === "go" ? setSheet(e) : decide(e, d))} />
+          <Card key={e.id} fc={fc} ev={e} st={state[e.id]} onDecide={(d) => (!connected ? setShowSettings(true) : d === "go" ? setSheet(e) : decide(e, d))} />
         ))}
       </main>
 
@@ -255,7 +267,7 @@ export default function App() {
       {detail && (
         <div className="scrim" onClick={() => setDetail(null)}>
           <div className="sheet" role="dialog" aria-modal="true" aria-label="Event details" onClick={(e) => e.stopPropagation()}>
-            <Card ev={detail} st={state[detail.id]} onDecide={(d) => {
+            <Card fc={fc} ev={detail} st={state[detail.id]} onDecide={(d) => {
               if (!connected) { setDetail(null); setShowSettings(true); return; }
               setDetail(null);
               if (d === "go") setSheet(detail); else decide(detail, d);
@@ -275,6 +287,36 @@ export default function App() {
   );
 }
 
+/** The next ~two weeks at a glance, so a day can be picked around the weather. Weekend days stand out. */
+function WeatherStrip({ fc, today }: { fc: wx.Forecast; today: string }) {
+  const days = Object.keys(fc).filter((d) => d >= today).sort().slice(0, 14);
+  const [open, setOpen] = useState<string | null>(null);
+  if (!days.length) return null;
+  const pick = open && fc[open] ? open : null;
+  return (
+    <section className="wxbar" aria-label="Weather outlook">
+      <div className="wxrow">
+        {days.map((d) => {
+          const dt = new Date(`${d}T00:00`), f = fc[d], we = dt.getDay() === 0 || dt.getDay() === 6;
+          return (
+            <button key={d} className={`wxday ${we ? "we" : ""} ${f.rain >= 50 ? "wet" : ""} ${pick === d ? "on" : ""}`}
+              onClick={() => setOpen(pick === d ? null : d)} aria-label={`${when(d)}: ${wx.sky(f.code).label}, high ${f.hi}, ${f.rain}% rain`}>
+              <small>{dt.toLocaleDateString([], { weekday: "short" })} {dt.getDate()}</small>
+              <span className="ic">{wx.sky(f.code).icon}</span>
+              <b>{f.hi}°</b>
+              <small>{f.rain >= 20 ? `${f.rain}%` : "\u00a0"}</small>
+            </button>
+          );
+        })}
+      </div>
+      {pick && (
+        <p className="wxnote"><b>{when(pick)}</b>: {wx.sky(fc[pick].code).label}, {fc[pick].hi}°/{fc[pick].lo}°, {fc[pick].rain}% chance of rain.
+          {wx.hint(fc[pick]) && <> {wx.hint(fc[pick])}.</>}</p>
+      )}
+    </section>
+  );
+}
+
 async function share(ev: ScoutEvent) {
   const text = `${ev.title}, ${when(ev.start)}${ev.venue ? ` at ${ev.venue}` : ""}${ev.city ? `, ${ev.city}` : ""}${ev.link ? `\n${ev.link}` : ""}`;
   try {
@@ -287,11 +329,11 @@ async function share(ev: ScoutEvent) {
 
 const LABEL: Record<Decision, string> = { go: "On the calendar", maybe: "Maybe", pass: "Passed", bookmarked: "Planning ahead" };
 
-function Card({ ev, st, onDecide }: { ev: ScoutEvent; st?: { decision?: Decision; homeschool?: boolean }; onDecide: (d: Decision) => void }) {
+function Card({ ev, st, onDecide, fc }: { fc: wx.Forecast; ev: ScoutEvent; st?: { decision?: Decision; homeschool?: boolean }; onDecide: (d: Decision) => void }) {
   const d = st?.decision;
   return (
     <article className={`card ${d ?? ""}`}>
-      <div className="when">{when(ev.start)}</div>
+      <div className="when">{when(ev.start)}{fc[ev.start.slice(0, 10)] && <span className={`wx ${fc[ev.start.slice(0, 10)].rain >= 50 ? "wet" : ""}`}>{wx.brief(fc[ev.start.slice(0, 10)])}</span>}</div>
       <h3>{ev.title}</h3>
       <div className="meta">
         {[ev.venue, ev.city].filter(Boolean).join(" · ")}
