@@ -49,7 +49,7 @@ const EMPTY: Record<SectionKey, string> = {
   plan_ahead: "Nothing to plan ahead for yet.", evergreen: "No evergreen ideas yet.", sources: "",
 };
 
-type Status = { kind: "demo" | "ok" | "offline" | "error"; at?: number; msg?: string };
+type Status = { kind: "demo" | "ok" | "offline" | "error"; at?: number; msg?: string; auth?: boolean };
 
 export default function App() {
   const [feed, setFeed] = useState<Feed | null>(() => read<Feed | null>(K.feed, null));
@@ -118,7 +118,8 @@ export default function App() {
       }
       setStatus(out.error ? { kind: "error", msg: out.error } : { kind: "ok", at: Date.now() });
     } catch (e) {
-      setStatus({ kind: navigator.onLine ? "error" : "offline", msg: e instanceof Error ? e.message : String(e) });
+      if (dbx.isAuthError(e)) setStatus({ kind: "error", auth: true, msg: "Dropbox sign-in expired" });
+      else setStatus({ kind: navigator.onLine ? "error" : "offline", msg: dbx.describeError(e) });
     }
   };
 
@@ -229,8 +230,13 @@ export default function App() {
       </div>
       {connected && (status.kind === "error" || status.kind === "offline") && (
         <div className="banner err-banner" role="alert">
-          <span>{status.kind === "offline" ? "You're offline. Showing the last saved list." : `Couldn't sync: ${status.msg ?? "unknown error"}`}</span>
-          <button onClick={() => void sync(queue)}>Retry</button>
+          <span>{status.kind === "offline" ? "You're offline. Showing the last saved list."
+            : status.auth ? "Dropbox sign-in expired. Your taps are saved and will send after you reconnect."
+            : `Couldn't sync: ${status.msg ?? "unknown error"}`}</span>
+          {status.auth
+            ? <button className="go" onClick={() => { dbx.disconnect(); setConnected(false); void beginAuth(setStatus); }}>Reconnect</button>
+            : <button onClick={() => void sync(queue)}>Retry</button>}
+          <button onClick={() => void resetApp()}>Reload latest</button>
         </div>
       )}
       {connected && !feed && status.kind !== "error" && <p className="empty">Loading your list…</p>}

@@ -93,11 +93,9 @@ function client(): Dropbox {
   return new Dropbox({ auth });
 }
 
-interface DbxError {
-  status?: number;
-  error?: { error_summary?: string; error?: { ".tag"?: string; path?: { ".tag"?: string } } };
-}
-const summary = (e: unknown) => (e as DbxError)?.error?.error_summary ?? "";
+import { summary } from "./dbxerr.ts";
+import type { DbxError } from "./dbxerr.ts";
+export { describeError, isAuthError } from "./dbxerr.ts";
 const isNotFound = (e: unknown) => (e as DbxError)?.status === 409 && summary(e).includes("not_found");
 const isConflict = (e: unknown) => (e as DbxError)?.status === 409 && summary(e).includes("conflict");
 
