@@ -28,14 +28,19 @@ export interface EvergreenItem {
   upcoming?: { title: string; start: string; link: string }[];
 }
 
+export interface KidsEatItem {
+  id: string; name: string; city: string; drive_min: number; days: number[]; hours: string; deal: string;
+  seasonal?: string; url: string;
+}
+
 export type SectionKey =
   | "did_you_go" | "this_weekend" | "next_2_weeks" | "weeks_3_4"
-  | "homeschool_day_trips" | "date_night" | "plan_ahead" | "evergreen" | "sources";
+  | "homeschool_day_trips" | "date_night" | "plan_ahead" | "evergreen" | "kids_eat_free" | "sources";
 
 export interface Feed {
   generated: string;
   today: string;
-  sections: Record<Exclude<SectionKey, "evergreen" | "sources">, ScoutEvent[]> & { evergreen?: EvergreenItem[] };
+  sections: Record<Exclude<SectionKey, "evergreen" | "kids_eat_free" | "sources">, ScoutEvent[]> & { evergreen?: EvergreenItem[]; kids_eat_free?: KidsEatItem[] };
   sources?: SourceInfo[];
   suggestions?: Suggestion[];
   decisions: Record<string, { decision: Decision; homeschool: boolean; attended: string | null }>;

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { Decision, EvergreenItem, Feed, InboxItem, ScoutEvent, SectionKey } from "./types.ts";
+import type { Decision, EvergreenItem, KidsEatItem, Feed, InboxItem, ScoutEvent, SectionKey } from "./types.ts";
 import * as dbx from "./lib/dropbox.ts";
 import { enqueue, flush, overlay } from "./lib/queue.ts";
 import type { Queued } from "./lib/queue.ts";
@@ -26,13 +26,14 @@ const save = (k: string, v: unknown) => {
   }
 };
 
-type Kind = "family" | "date_night" | "plan_ahead" | "evergreen" | "sources";
+type Kind = "family" | "date_night" | "plan_ahead" | "evergreen" | "kids_eat_free" | "sources";
 type When = "this_weekend" | "next_2_weeks" | "weeks_3_4" | "homeschool_day_trips";
 const KINDS: { key: Kind; label: string }[] = [
   { key: "family", label: "Family" },
   { key: "date_night", label: "Date night" },
   { key: "plan_ahead", label: "Plan ahead" },
   { key: "evergreen", label: "Evergreen" },
+  { key: "kids_eat_free", label: "Kids eat" },
   { key: "sources", label: "Sources" },
 ];
 const WHENS: { key: When; label: string }[] = [
@@ -46,7 +47,7 @@ const EMPTY: Record<SectionKey, string> = {
   did_you_go: "", this_weekend: "Nothing strong this weekend.", next_2_weeks: "Nothing in the next two weeks yet.",
   weeks_3_4: "Nothing in weeks 3–4 yet.", homeschool_day_trips: "No weekday outings this week.",
   date_night: "No date-night picks yet. They appear once newsletters are read for events.",
-  plan_ahead: "Nothing to plan ahead for yet.", evergreen: "No evergreen ideas yet.", sources: "",
+  plan_ahead: "Nothing to plan ahead for yet.", evergreen: "No evergreen ideas yet.", kids_eat_free: "No kids-eat-free places listed yet.", sources: "",
 };
 
 type Status = { kind: "demo" | "ok" | "offline" | "error"; at?: number; msg?: string; auth?: boolean };
@@ -158,7 +159,7 @@ export default function App() {
   const state = useMemo(() => overlay(feed, queue), [feed, queue]);
   const today = localToday();   // phone's date: a feed that is a day or two old must not show finished events
   const items = useMemo(() => {
-    const list = tab === "evergreen" || tab === "sources" ? [] : feed?.sections[tab] ?? [];
+    const list = tab === "evergreen" || tab === "kids_eat_free" || tab === "sources" ? [] : feed?.sections[tab] ?? [];
     return list.filter((e) => upcoming(e, today)).filter((e) => (!freeOnly || e.cost === "Free") && (!weekendOnly || isWeekend(e.start)))
       .filter((e) => state[e.id]?.decision !== "pass");
   }, [feed, tab, freeOnly, weekendOnly, state, today]);
@@ -217,7 +218,7 @@ export default function App() {
         )}
       </div>
       <div className="filters">
-        {kind !== "evergreen" && kind !== "sources" && (<>
+        {kind !== "evergreen" && kind !== "kids_eat_free" && kind !== "sources" && (<>
           <label><input type="checkbox" checked={freeOnly} onChange={(e) => setFreeOnly(e.target.checked)} /> Free</label>
           {tab !== "this_weekend" && (
             <label><input type="checkbox" checked={weekendOnly} onChange={(e) => setWeekendOnly(e.target.checked)} /> Weekend</label>
@@ -248,18 +249,19 @@ export default function App() {
       )}
 
       <main>
+        {tab === "kids_eat_free" && <KidsEat items={feed?.sections.kids_eat_free ?? []} />}
         {tab === "evergreen" && <Evergreen items={feed?.sections.evergreen ?? []} />}
         {tab === "sources" && <SourcesView feed={feed} queue={queue} connected={connected}
           onSuggest={(url, note) => send({ type: "source", url, note, at: new Date().toISOString() })} />}
-        {tab !== "evergreen" && tab !== "sources" && items.length === 0 && (
+        {tab !== "evergreen" && tab !== "kids_eat_free" && tab !== "sources" && items.length === 0 && (
           <p className="empty">
             {freeOnly || weekendOnly ? "Nothing here with those filters." : EMPTY[tab]}
           </p>
         )}
-        {tab !== "evergreen" && tab !== "sources" && view === "timeline" && items.length > 0 && (
+        {tab !== "evergreen" && tab !== "kids_eat_free" && tab !== "sources" && view === "timeline" && items.length > 0 && (
           <Timeline fc={fc} items={items} onOpen={setDetail} status={(id) => state[id]?.decision} />
         )}
-        {tab !== "evergreen" && tab !== "sources" && view === "list" && items.map((e) => (
+        {tab !== "evergreen" && tab !== "kids_eat_free" && tab !== "sources" && view === "list" && items.map((e) => (
           <Card key={e.id} fc={fc} ev={e} st={state[e.id]} onDecide={(d) => (!connected ? setShowSettings(true) : d === "go" ? setSheet(e) : decide(e, d))} />
         ))}
       </main>
@@ -405,6 +407,37 @@ async function beginAuth(setStatus: (s: Status) => void) {
   } catch (e) {
     setStatus({ kind: "error", msg: e instanceof Error ? e.message : String(e) });
   }
+}
+
+const DAY = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const DAY_LONG = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+function KidsEat({ items }: { items: KidsEatItem[] }) {
+  if (items.length === 0) return <p className="empty">{EMPTY.kids_eat_free}</p>;
+  const todayIdx = (new Date().getDay() + 6) % 7;   // Mon=0
+  const sorted = [...items].sort((a, b) => Number(b.days.includes(todayIdx)) - Number(a.days.includes(todayIdx)) || a.drive_min - b.drive_min);
+  return (
+    <>
+      <p className="note">Kids-eat-free deals within about 15 minutes of home. Restaurants change these often, so confirm before you go.</p>
+      {sorted.map((i) => {
+        const now = i.days.includes(todayIdx);
+        return (
+          <article className="card ever" key={i.id}>
+            <div className="when">{i.city}{now ? ` · tonight (${DAY_LONG[todayIdx]})` : ""}</div>
+            <h3>{i.name}</h3>
+            <div className="chips">
+              <span className="chip">{i.drive_min} min</span>
+              {now && <span className="chip mem">Today</span>}
+              {i.days.map((d) => <span key={d} className="chip">{DAY[d]}</span>)}
+            </div>
+            <p className="sum"><b>{i.hours}.</b> {i.deal}</p>
+            {i.seasonal && <p className="sum">{i.seasonal}</p>}
+            {i.url && <a className="open" href={i.url} target="_blank" rel="noreferrer">Open website</a>}
+          </article>
+        );
+      })}
+    </>
+  );
 }
 
 function Evergreen({ items }: { items: EvergreenItem[] }) {
