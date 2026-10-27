@@ -27,7 +27,7 @@ const save = (k: string, v: unknown) => {
 };
 
 type Kind = "family" | "date_night" | "plan_ahead" | "evergreen" | "kids_eat_free" | "sources";
-type When = "this_weekend" | "next_2_weeks" | "weeks_3_4" | "homeschool_day_trips";
+type When = "this_weekend" | "next_2_weeks" | "weeks_3_4";
 const KINDS: { key: Kind; label: string }[] = [
   { key: "family", label: "Family" },
   { key: "date_night", label: "Date night" },
@@ -40,12 +40,15 @@ const WHENS: { key: When; label: string }[] = [
   { key: "this_weekend", label: "This weekend" },
   { key: "next_2_weeks", label: "Next 2 wks" },
   { key: "weeks_3_4", label: "Weeks 3–4" },
-  { key: "homeschool_day_trips", label: "Weekdays" },
 ];
+
+const PAYTEXT: Record<string, (cost: string) => string> = {
+  free: () => "Free", paid: (c) => (c.startsWith("$") ? c : "Paid"), member: () => "Members", check: (c) => (c === "unknown" ? "Check price" : c),
+};
 
 const EMPTY: Record<SectionKey, string> = {
   did_you_go: "", this_weekend: "Nothing strong this weekend.", next_2_weeks: "Nothing in the next two weeks yet.",
-  weeks_3_4: "Nothing in weeks 3–4 yet.", homeschool_day_trips: "No weekday outings this week.",
+  weeks_3_4: "Nothing in weeks 3–4 yet.",
   date_night: "No date-night picks yet. They appear once newsletters are read for events.",
   plan_ahead: "Nothing to plan ahead for yet.", evergreen: "No evergreen ideas yet.", kids_eat_free: "No kids-eat-free places listed yet.", sources: "",
 };
@@ -160,7 +163,7 @@ export default function App() {
   const today = localToday();   // phone's date: a feed that is a day or two old must not show finished events
   const items = useMemo(() => {
     const list = tab === "evergreen" || tab === "kids_eat_free" || tab === "sources" ? [] : feed?.sections[tab] ?? [];
-    return list.filter((e) => upcoming(e, today)).filter((e) => (!freeOnly || e.cost === "Free") && (!weekendOnly || isWeekend(e.start)))
+    return list.filter((e) => upcoming(e, today)).filter((e) => (!freeOnly || (e.pay ?? (e.cost === "Free" ? "free" : "check")) === "free") && (!weekendOnly || isWeekend(e.start)))
       .filter((e) => state[e.id]?.decision !== "pass");
   }, [feed, tab, freeOnly, weekendOnly, state, today]);
   const askWent = (feed?.sections.did_you_go ?? []).filter((e) => !state[e.id]?.attended);
@@ -229,6 +232,12 @@ export default function App() {
           </span>
         </>)}
       </div>
+      {kind !== "evergreen" && kind !== "kids_eat_free" && kind !== "sources" && (
+        <p className="legend" aria-label="Price colours">
+          <span className="chip pay-free">Free</span><span className="chip pay-paid">Paid</span>
+          <span className="chip pay-member">Members</span><span className="chip">Price not listed</span>
+        </p>
+      )}
       {connected && (status.kind === "error" || status.kind === "offline") && (
         <div className="banner err-banner" role="alert">
           <span>{status.kind === "offline" ? "You're offline. Showing the last saved list."
@@ -340,14 +349,14 @@ const LABEL: Record<Decision, string> = { go: "On the calendar", maybe: "Maybe",
 function Card({ ev, st, onDecide, fc }: { fc: wx.Forecast; ev: ScoutEvent; st?: { decision?: Decision; homeschool?: boolean }; onDecide: (d: Decision) => void }) {
   const d = st?.decision;
   return (
-    <article className={`card ${d ?? ""}`}>
+    <article className={`card pay-${ev.pay ?? "check"} ${d ?? ""}`}>
       <div className="when">{when(ev.start)}{fc[ev.start.slice(0, 10)] && <span className={`wx ${fc[ev.start.slice(0, 10)].rain >= 50 ? "wet" : ""}`}>{wx.brief(fc[ev.start.slice(0, 10)])}</span>}</div>
       <h3>{ev.title}</h3>
       <div className="meta">
         {[ev.venue, ev.city].filter(Boolean).join(" · ")}
       </div>
       <div className="chips">
-        <span className={`chip ${ev.cost === "Free" ? "free" : ""}`}>{ev.cost}</span>
+        <span className={`chip pay-${ev.pay ?? "check"}`}>{PAYTEXT[ev.pay ?? "check"](ev.cost)}</span>
         <span className="chip">Ages {ev.age_fit}</span>
         {drive(ev.drive_min) && <span className="chip">{drive(ev.drive_min)}</span>}
         {ev.registration !== "none" && <span className="chip warn">Register: {ev.registration}</span>}

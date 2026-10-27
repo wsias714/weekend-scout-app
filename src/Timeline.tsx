@@ -77,12 +77,12 @@ export default function Timeline({ items, onOpen, status, fc }: {
             <h3>{dayLabel(day)}{fc[day] && <span className={`wx ${fc[day].rain >= 50 ? "wet" : ""}`}>{brief(fc[day])}</span>}</h3>
             {fc[day] && hint(fc[day]) && <p className="wxhint">{hint(fc[day])}</p>}
             {allDay.map((e) => (
-              <button className="tl-allday" key={e.id} onClick={() => onOpen(e)}>{e.title}<small>Time not listed</small></button>
+              <button className={`tl-allday pay-${e.pay ?? "check"}`} key={e.id} onClick={() => onOpen(e)}>{e.title}<small>Time not listed</small></button>
             ))}
             {blocks.length > 0 && crowded && (
               <div className="tl-agenda">
                 {[...blocks].sort((a, b) => a.s - b.s || a.e - b.e).map((b) => (
-                  <button key={b.ev.id} className={`tl-row ${status(b.ev.id) ?? ""}`} onClick={() => onOpen(b.ev)}>
+                  <button key={b.ev.id} className={`tl-row pay-${b.ev.pay ?? "check"} ${status(b.ev.id) ?? ""}`} onClick={() => onOpen(b.ev)}>
                     <b>{clock(b.s)}</b><span>{b.ev.title}<small>{b.ev.venue || b.ev.city}</small></span>
                   </button>
                 ))}
@@ -98,7 +98,7 @@ export default function Timeline({ items, onOpen, status, fc }: {
                 {blocks.map((b) => (
                   <button
                     key={b.ev.id}
-                    className={`tl-ev ${status(b.ev.id) ?? ""}`}
+                    className={`tl-ev pay-${b.ev.pay ?? "check"} ${status(b.ev.id) ?? ""}`}
                     style={{
                       top: yOf(b.s), height: Math.max(((b.e - b.s) / 60) * PX - 2, 30),
                       left: `calc(46px + (100% - 46px) * ${b.col / b.cols})`,

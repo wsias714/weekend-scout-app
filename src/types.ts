@@ -7,6 +7,7 @@ export interface ScoutEvent {
   venue: string;
   city: string;
   cost: string;
+  pay?: "free" | "paid" | "member" | "check";
   age_fit: string;
   registration: string;
   category: string;
@@ -35,7 +36,7 @@ export interface KidsEatItem {
 
 export type SectionKey =
   | "did_you_go" | "this_weekend" | "next_2_weeks" | "weeks_3_4"
-  | "homeschool_day_trips" | "date_night" | "plan_ahead" | "evergreen" | "kids_eat_free" | "sources";
+  | "date_night" | "plan_ahead" | "evergreen" | "kids_eat_free" | "sources";
 
 export interface Feed {
   generated: string;

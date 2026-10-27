@@ -117,3 +117,18 @@ details { margin-top: 12px; font-size: 14px; } details button { margin: 8px 8px 
 .tl-row small { display: block; color: var(--muted); font-size: 12px; }
 .tl-row.go { background: var(--green); color: var(--bg); } .tl-row.go small { color: inherit; opacity: .8; }
 .tl-row.maybe { background: var(--warn); }
+/* Price colour code: green free, orange paid, purple members, grey = price not listed */
+:root { --paid: #f8dccf; --paid-bd: #c0562b; --mem: #e9dcf3; --mem-bd: #7a4aa0; }
+@media (prefers-color-scheme: dark) { :root { --paid: #3d2218; --paid-bd: #e07a4a; --mem: #2e2040; --mem-bd: #b58ae0; } }
+.chip.pay-free { background: var(--free); font-weight: 600; }
+.chip.pay-paid { background: var(--paid); font-weight: 600; }
+.chip.pay-member { background: var(--mem); font-weight: 600; }
+.card { border-left: 5px solid transparent; }
+.card.pay-free { border-left-color: var(--green-2); } .card.pay-paid { border-left-color: var(--paid-bd); }
+.card.pay-member { border-left-color: var(--mem-bd); } .card.pay-check { border-left-color: var(--line); }
+.tl-ev.pay-paid, .tl-row.pay-paid, .tl-allday.pay-paid { background: var(--paid); border-color: var(--paid-bd); }
+.tl-ev.pay-member, .tl-row.pay-member, .tl-allday.pay-member { background: var(--mem); border-color: var(--mem-bd); }
+.tl-ev.pay-check, .tl-row.pay-check { background: var(--card); border-color: var(--line); border-left-color: var(--muted); }
+.tl-ev.go, .tl-row.go { background: var(--green); } .tl-ev.maybe, .tl-row.maybe { background: var(--warn); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; margin: 6px 0 0; }
+.tl-allday.pay-free { background: var(--free); border-color: var(--green-2); } .tl-allday.pay-check { background: var(--card); border-color: var(--line); }
