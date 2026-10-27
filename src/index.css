@@ -110,3 +110,10 @@ details { margin-top: 12px; font-size: 14px; } details button { margin: 8px 8px 
 .wx { margin-left: 8px; font-size: 12px; font-weight: 500; color: var(--muted); font-family: system-ui, sans-serif; white-space: nowrap; }
 .wx.wet { color: #2f6fb0; font-weight: 700; }
 .wxhint { margin: -2px 0 6px; font-size: 13px; color: var(--muted); }
+.tl-allday small { display: block; font-size: 12px; opacity: .65; }
+.tl-agenda { display: grid; gap: 4px; margin-top: 4px; }
+.tl-row { display: flex; gap: 10px; align-items: baseline; width: 100%; text-align: left; min-height: 40px; padding: 6px 10px; font-size: 14px; border-radius: 8px; background: var(--free); border: 1px solid var(--green-2); border-left-width: 4px; }
+.tl-row b { flex: none; min-width: 52px; font-size: 13px; }
+.tl-row small { display: block; color: var(--muted); font-size: 12px; }
+.tl-row.go { background: var(--green); color: var(--bg); } .tl-row.go small { color: inherit; opacity: .8; }
+.tl-row.maybe { background: var(--warn); }
