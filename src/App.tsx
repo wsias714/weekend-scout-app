@@ -7,6 +7,7 @@ import { drive, isWeekend, localToday, upcoming, when } from "./lib/format.ts";
 import SourcesView from "./Sources.tsx";
 import Timeline from "./Timeline.tsx";
 import { resetApp } from "./Boundary.tsx";
+import { openFeedback } from "./feedback.ts";
 import * as wx from "./lib/weather.ts";
 
 const K = { feed: "ws-feed", queue: "ws-queue" };
@@ -516,6 +517,7 @@ function Settings({ status, connected, queue, onClose, onChange, onSync }: {
         )}
         {connected && <div className="sheet-actions"><button className="go" onClick={onSync}>Sync now</button><button onClick={() => { dbx.disconnect(); onChange(); }}>Disconnect</button></div>}
         {err && <p className="err">{err}</p>}
+        <div className="sheet-actions"><button className="go" onClick={openFeedback}>Send feedback</button></div>
         <div className="sheet-actions"><button onClick={() => void resetApp()}>Reset app (keeps Dropbox login)</button></div>
         <div className="sheet-actions"><button onClick={onClose}>Close</button></div>
       </div>
